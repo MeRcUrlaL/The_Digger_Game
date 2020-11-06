@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="./css/index.css">
+  <title>Digger</title>
+</head>
+<body>
+
+  <div class="storage stat-item"></div>
+  <div class="money stat-item"></div>
+  <div class="fuel"></div>
+  <div id="game"></div>
+  
+  <div class="menu-item shop" style="display: none;">
+    <span class="header">Ore storage</span>
+    <button class="cancel shop__cancel">X</button>
+    <div class="shop__container"></div>
+    <button class="button shop__sell">Sell all resources</button>
+    <span class="shop__info">Sell for: 0$</span>
+  </div>
+
+  <div class="menu-item fuel-station" style="display: none;">
+    <span class="header">Fuel station</span>
+    <button class="cancel fuel__cancel">X</button>
+    <button class="button buy-piece-fuel">Buy 1 fuel</button>
+    <button class="button buy-fuel">Buy full tank</button>
+    <br>
+    <span class="fuel-cost">fuel cost: 0$</span>
+  </div>
+
+  <div class="menu-item upgrade-station" style="display: none;">
+    <span class="header">Upgrade station</span>
+    <button class="cancel upgrade__cancel">X</button>
+    <div class="upgrade-list">
+      <div class="upgrade-item upgrade-tank">11</div>
+      <div class="upgrade-item upgrade-storage">22</div>
+    </div>
+  </div>
+
+<script src="./js/game.js"></script>
+</body>
+</html>

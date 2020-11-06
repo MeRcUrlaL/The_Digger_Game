@@ -1,0 +1,269 @@
+@font-face {
+    font-family: 'Pixel'; 
+    src: url(../fonts/karma.future.ttf);
+    font-weight: normal; 
+    font-style: normal;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-image: url(../img/enviourment.png);
+    color: black;
+    background-repeat: no-repeat;
+    overflow: hidden;
+    font-family: 'Pixel';
+}
+
+.stat-item {
+    background-color: rgba(255, 255, 255, 0.45);
+    border: rgba(0, 0, 0, 0.3) solid 2px;
+    border-radius: 2px;
+    background-repeat: no-repeat;
+    text-align: right;
+    position: fixed;
+    z-index: 999;
+    padding-left: 35px;
+    font-size: 28px;
+    line-height: 21px;
+}
+
+.stat-item:first-child {
+    border-bottom: none;
+}
+
+.storage {
+    background-image: url(../img/storage.png);
+    min-width: 100px;
+    height: 32px;
+
+    top: 20px;
+    right: 20px;
+}
+
+.money {
+    background-image: url(../img/money.png);
+    min-width: 100px;
+    height: 32px;
+
+    top: 52px;
+    right: 20px;
+}
+
+.fuel {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    font-size: 30px;
+    z-index: 999;
+}
+
+#game {
+    padding-top: 450px;
+    /* height: 3000px; */
+    position: absolute;
+    width: 2000px;
+    display: flex;
+    align-content: flex-start;
+    flex-wrap: wrap;
+}
+
+.line {
+    width: 100%;
+    height: 50px;
+}
+
+.line:not(:nth-child(1)){
+    background-image: url(../img/bgstone.png);
+}
+
+.line:nth-child(2){
+    background-image: url(../img/bggrass.png);
+}
+
+.block {
+    width: 50px;
+    height: 50px;
+    display: inline-block;
+    position: relative;
+}
+
+
+.b0 {
+    background: transparent;
+}
+
+.b2, .dirt {
+    background-image: url(../img/grass.png);
+}
+
+.b3, .stone {
+    background-image: url(../img/stone.png);
+}
+
+.b4, .coal {
+    background-image: url(../img/coal.png);
+}
+
+.b5, .copper {
+    background-image: url(../img/copper.png);
+}
+
+.b6, .tin {
+    background-image: url(../img/tin.png);
+}
+
+.b7, .iron {
+    background-image: url(../img/iron.png);
+}
+
+.b998 {
+    background-image: url(../img/shop.png);
+}
+
+.b1 {
+    background-image: url(../img/bgstone.png);
+}
+
+.b999 {
+    background-image: url(../img/drillGroundL.png);
+    z-index: 10;
+}
+
+.menu-item {
+    background: rgba(107, 107, 107, 0.8);
+    border: 2px solid gray;
+    border-radius: 4px;
+    position: fixed;
+    z-index: 11;
+}
+
+.shop {
+    height: 60vh;
+    width: 50vw;
+    left: 25vw;
+    top: 20vh;
+    overflow-y: auto;
+    text-align: center;
+}
+
+/* Нужно настроить высоту */
+.shop__container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: flex-start;
+    overflow-y: auto;
+    padding-left: 6px;
+    min-height: 10vh;
+    max-height: 40vh;
+}
+
+.shop__element {
+    background-color: rgba(0, 0, 0, 0.05);
+    text-transform: capitalize;
+    margin-right: 10px;
+    margin-top: 10px;
+    padding-top: 98px;
+    background-repeat: no-repeat;
+    background-size: contain;
+    vertical-align: top;
+    width: 100px;
+    height: 20px;
+}
+
+.cancel {
+    font-family: 'Pixel';
+    position: absolute;
+    font-size: 15px;
+    line-height: 1px;
+    width: 20px;
+    height: 20px;
+}
+
+.shop__cancel {
+    top: 10px;
+    right: 10px;
+}
+
+.upgrade__cancel {
+    top: 10px;
+    right: 10px;
+}
+
+.button {
+    color: black;
+    font-family: 'Pixel';
+    font-size: 19px;
+    line-height: 17px;
+    background: rgba(255, 255, 255, 0.2);
+    border: 2px solid rgb(65, 65, 65);
+    border-radius: 2px;
+}
+
+.shop__sell {
+    margin-top: 7px;
+    margin-right: 20px;
+    padding: 5px;
+    padding-top: 0px;
+}
+
+.fuel-station {
+    height: 20vh;
+    width: 50vw;
+    left: 25vw;
+    top: 40vh;
+    overflow-y: auto;
+    text-align: center;
+}
+
+.upgrade-station {
+    height: 60vh;
+    width: 50vw;
+    left: 25vw;
+    top: 20vh;
+    overflow-y: auto;
+    text-align: center;
+}
+
+.header {
+    font-size: 29px;
+    display: block;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.fuel__cancel {
+    top: 10px;
+    right: 10px;
+}
+
+.buy-piece-fuel, .buy-fuel {
+    margin-top: 2%;
+    padding: 0 30px 5px 30px;
+}
+
+progress {
+    background-color: #fff;
+    color: orange;
+    border-radius: 10px;
+    border: none;
+}
+
+.upgrade-list {
+    margin-top: 30px;
+    justify-content: center;
+    align-items: flex-start;
+    display: flex;
+
+}
+
+.upgrade-item {
+    margin-left: 10px;
+    width: 100px;
+    height: 100px;
+    border: black solid 1px ;
+}
