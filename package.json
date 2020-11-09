@@ -1,0 +1,23 @@
+{
+  "name": "digger",
+  "version": "1.0.8",
+  "description": "The digger game on html + css + JavaScript",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MeRcUrlaL/The_Digger_Game.git"
+  },
+  "keywords": [
+    "game",
+    "JavaScript"
+  ],
+  "author": "Arthur Nepran <merc.yandex@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MeRcUrlaL/The_Digger_Game/issues"
+  },
+  "homepage": "https://github.com/MeRcUrlaL/The_Digger_Game#readme"
+}

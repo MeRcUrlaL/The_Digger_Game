@@ -1,4 +1,5 @@
 // (function () {
+
 const game = document.getElementById('game')
 const storageView = document.querySelector('.storage')
 const moneyView = document.querySelector('.money')
@@ -380,5 +381,7 @@ function generateMap() {
 }
 
 generateMap()
+
+
 
 // })()
