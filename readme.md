@@ -1,6 +1,12 @@
-Игра Digger
+#The digger game
 
-id's:
+Controls:
+    
+    W-A-S-D: movement
+    E: Interact with buildings and objects
+
+ID list:
+
     0: air
     1: background stone
     2: grass
@@ -9,30 +15,27 @@ id's:
     5: copper
     6: tin
     7: iron
-    8:
-    9:
-    10:
-    11:
-    12:
-    13:
-    14:
-    15:
-    16:
+    8: coming soon...
 
-requirements:
-    ✓ Генерируемое игровое поле в виде двумерного массива с id блока 
-    ✓ Управление бурильной машиной с помощью кнопок WASD (или стрелочек)
-    ✓ Камера двигается за бурильной машиной, при этом прижимается к краям и не выходит за границы карты.
-    ✘ Заемнение вокруг бурильной машины на глубине от 3-х блоков
-    ✘ Прочность корпуса в виде шкалы в левом верхнем углу.
-    ✓ Трюм - внутренний склад бурильной машины
-    ✓ Магазин, в котором можно продать ресурсы из трюма.
-    ✓ Заправочная станция с интерфесом (1-я кнопка "Заправить" 2-я кнопка "Отмена") на середине окна подсказка со стоимостью заправки.
-    ✘ Станция улучшения с интерфейсом и следующим ассортиментом: Топливный бак, Бур, Корпус, Шасси  
-    ✘ Все конфиги засунуть в config.json файл
-    ✘ Разбить код на логические модули
-    ✘ Добавить возможность настройки частоты генерации руд.
-    ✘ Добавить генерацию определённых руд по высоте
-    ✘ Добавить механику прочности блоков
-    ✘ Если заканчивается топливо - вспывающее окно с возможностью подняться на поверхность 3$/блок по оси Y или заправиться 2$/ед.топлива
-    ✘ Возможность сохранять прогресс в json файл и загружать игру из json'a
+To do list:
+
+    ✓ The generated playing field is a two-dimensional array with the block id.
+    ✓ Control the drilling machine using the WASD buttons
+    ✓ The camera moves behind the drilling machine, while pressing against 
+       the edges and does not go beyond the boundaries of the map.
+    ✘ Darkening around the drilling machine at a depth of 3 blocks
+    ✘ Condition of the drilling machine body in the form of a scale.
+    ✓ Cargo hold - internal storage of the drilling machine
+    ✓ A store where you can sell resources from the hold.
+    ✓ A gas station with an interface (1st button "Fill up 1 unit of fuel" 2nd button "fill up the tank")
+       in the middle of the window is a hint with the cost of refueling.
+    ✘ drill machine upgrading station
+    ✘ ?All configuration variables are placed in the config.json
+    ✓ Divide the code into modules
+    ✘ Ores are generated at the specified rate
+    ✘ Some ores are generated starting from a certain height
+    ✘ Mechanics of ore hardness
+    ✘ Preload and game menu
+    ✘ If you run out of fuel, a pop-up window with the ability to instantly 
+       rise to the surface 3$/block on the Y axis or refuel oneFuel * 2$/unit.fuels
+    ✘ Saving and loading the game
