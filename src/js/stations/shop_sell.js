@@ -5,6 +5,10 @@ export let money = 0
 
 const shop = document.querySelector('.shop')
 
+export function increaseMoney(value) {
+	money += value
+}
+
 export function decreaseMoney(value) {
 	money -= value
 }

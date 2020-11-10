@@ -21,6 +21,10 @@ export function clearProfit() {
 	profit = 0
 }
 
+export function increaseMaxStorage(value) {
+	maxStorage += value
+}
+
 export function dig(current, next) {
 	switch (next.classList[2]) {
 		case 'b2':

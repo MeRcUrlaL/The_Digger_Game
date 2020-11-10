@@ -258,12 +258,23 @@ progress {
     justify-content: center;
     align-items: flex-start;
     display: flex;
-
 }
 
 .upgrade-item {
+    cursor: pointer;
     margin-left: 10px;
-    width: 100px;
-    height: 100px;
+    width: 90px;
+    height: 90px;
     border: black solid 1px ;
+    padding: 5px;
+}
+
+.upgrade-tank {
+    background-image: url(../img/upgrade_fuel.png);
+    background-size: cover;
+}
+
+.upgrade-storage {
+    background-image: url(../img/upgrade_storage.png);
+    background-size: cover;
 }
