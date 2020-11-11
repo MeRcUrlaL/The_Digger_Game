@@ -24,9 +24,9 @@ body {
     border-radius: 2px;
     background-repeat: no-repeat;
     text-align: right;
+    padding-left: 35px;
     position: fixed;
     z-index: 999;
-    padding-left: 35px;
     font-size: 28px;
     line-height: 21px;
 }
@@ -277,4 +277,14 @@ progress {
 .upgrade-storage {
     background-image: url(../img/upgrade_storage.png);
     background-size: cover;
+}
+
+.depth {
+    height: 32px;
+    min-width: 100px;
+    padding: 0 10px;
+    text-align: left;
+
+    left: 20px;
+    top: 70px
 }

@@ -45,3 +45,9 @@ export function renderMoney(money) {
 
   moneyView.innerText = `${money}$`
 }
+
+export function renderDepth(posY) {
+	const  depthView = document.querySelector('.depth')
+
+	depthView.innerText = `Depth: ${posY}`
+}

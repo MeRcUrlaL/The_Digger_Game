@@ -1,4 +1,6 @@
-#The digger game
+#The digger game v. 1.1.2
+
+You can try the game at the link: q90175e4.beget.tech (Free hosting :D)
 
 Controls:
     
@@ -29,11 +31,12 @@ To do list:
     ✓ A store where you can sell resources from the hold.
     ✓ A gas station with an interface (1st button "Fill up 1 unit of fuel" 2nd button "fill up the tank")
        in the middle of the window is a hint with the cost of refueling.
-    ✘ drill machine upgrading station
+    ✓ drill machine upgrading station
     ✘ ?All configuration variables are placed in the config.json
     ✓ Divide the code into modules
-    ✘ Ores are generated at the specified rate
-    ✘ Some ores are generated starting from a certain height
+    ✓ Ores are generated at the specified rate
+    ✓ Some ores are generated starting from a certain height
+    ✓ The mechanics of speed
     ✘ Mechanics of ore hardness
     ✘ Preload and game menu
     ✘ If you run out of fuel, a pop-up window with the ability to instantly 

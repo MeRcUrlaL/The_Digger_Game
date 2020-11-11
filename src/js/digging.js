@@ -7,10 +7,10 @@ export let profit= 0
 export let storage = {
 	dirt: 0,
 	stone: 0,
+	coal: 0,
 	copper: 0,
 	tin: 0,
 	iron: 0,
-	coal: 0,
 }
 
 export function clearStorage() {

@@ -1,7 +1,12 @@
 import {gameField} from './map-genertor'
 import {dig, isDiggable, isFullStorage} from './digging'
-import {renderFuel} from './render'
+import {renderFuel, renderDepth} from './render'
 import {interact} from './interaction'
+
+const fuelForMove = 0.5
+const fuelForDig = 2
+
+const speed = 1000
 
 export let posX = 12
 export let posY = 0
@@ -19,24 +24,28 @@ export function increaseMaxFuel(value) {
 }
 
 let current = game.querySelector(`.y${posY}x${posX}`)
+let timer
+
+function timeOut(timeout) {
+	debugger
+	timer = setTimeout(() => timer = clearTimeout(timer), timeout)
+}
 
 window.addEventListener('keydown', (ev) => {
-	switch (ev.keyCode) {
-		case 87:
-			moveY(-1)
-			break
-		case 65:
-			moveX(-1)
-			break
-		case 83:
-			moveY(1)
-			break
-		case 68:
-			moveX(1)
-			break
-		case 69:
-			interact()
-			break
+	if (!timer && ev.keyCode == '87') {
+		moveY(-1)
+		timeOut(1500 - speed)
+	} else if (!timer && ev.keyCode == '65') {
+		moveX(-1)
+		timeOut(1500 - speed)
+	} else if (!timer && ev.keyCode == '83') {
+		moveY(1)
+		timeOut(1500 - speed)
+	} else if (!timer && ev.keyCode == '68') {
+		moveX(1)
+		timeOut(1500 - speed)
+	} else if (ev.keyCode == '69') {
+		interact()
 	}
 })
 
@@ -71,9 +80,10 @@ function move(current, next, direction) {
 		moveDirection(current, next, direction)
 		camFollow()
 		if(posY > 0) {
-			fuel--
+			fuel -= fuelForMove
 			renderFuel(fuel, maxFuel, posY)
 		}
+		renderDepth(posY)
 	} else if (!isFullStorage() && fuel >=2) {
 		dig(current, next)
 		current.classList.remove('b999')
@@ -81,19 +91,22 @@ function move(current, next, direction) {
 		moveDirection(current, next, direction)
 		camFollow()
 		if(posY > 0) {
-			fuel -= 2
+			fuel -= fuelForDig
 			renderFuel(fuel, maxFuel, posY)
 		}
+		renderDepth(posY)
 	} else {
 		preventMove(direction)
-		if (fuel <= 0) {
+		if (fuel < fuelForMove) {
 			// gameOver()
 		}
 	}
 }
 
 function camFollow() {
-	window.scrollTo(document.querySelector('.b999').offsetLeft - window.visualViewport.width / 2 + 25, document.querySelector('.b999').offsetTop - window.visualViewport.height / 2 + 25)
+	const drill = document.querySelector('.b999')
+	drill.scrollIntoView({block: "center",inline: "center", behavior: "smooth"})
+	// window.scrollTo(document.querySelector('.b999').offsetLeft - window.visualViewport.width / 2 + 25, document.querySelector('.b999').offsetTop - window.visualViewport.height / 2 + 25)
 }
 
 function preventMove(direction) {
