@@ -1,17 +1,22 @@
 import {gameField} from './map-genertor'
 import {dig, isDiggable, isFullStorage} from './digging'
-import {renderFuel, renderDepth} from './render'
+import {renderFuel, renderDepth, clearDarkness} from './render'
 import {interact} from './interaction'
 
 const fuelForMove = 0.5
 const fuelForDig = 2
 
-const speed = 1000
+const speed = 1400
+
+const game = document.getElementById('game')
+
+let visionRadius = 1
+export function increaseVision(value) {
+	visionRadius += value
+}
 
 export let posX = 12
 export let posY = 0
-
-const game = document.getElementById('game')
 
 export let fuel = 40
 export function increaseFuel(value) {
@@ -27,7 +32,6 @@ let current = game.querySelector(`.y${posY}x${posX}`)
 let timer
 
 function timeOut(timeout) {
-	debugger
 	timer = setTimeout(() => timer = clearTimeout(timer), timeout)
 }
 
@@ -83,6 +87,9 @@ function move(current, next, direction) {
 			fuel -= fuelForMove
 			renderFuel(fuel, maxFuel, posY)
 		}
+		if (posY >= visionRadius) {
+			clearDarkness(posX, posY, visionRadius)
+		}
 		renderDepth(posY)
 	} else if (!isFullStorage() && fuel >=2) {
 		dig(current, next)
@@ -93,6 +100,9 @@ function move(current, next, direction) {
 		if(posY > 0) {
 			fuel -= fuelForDig
 			renderFuel(fuel, maxFuel, posY)
+		}
+		if (posY >= visionRadius) {
+			clearDarkness(posX, posY, visionRadius)
 		}
 		renderDepth(posY)
 	} else {

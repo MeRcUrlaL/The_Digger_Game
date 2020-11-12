@@ -1,6 +1,6 @@
-#The digger game v. 1.1.2
+#The digger game v. 1.1.5B
 
-You can try the game at the link: q90175e4.beget.tech (Free hosting :D)
+You can try the game at the link: [Digger](q90175e4.beget.tech)
 
 Controls:
     
@@ -17,7 +17,9 @@ ID list:
     5: copper
     6: tin
     7: iron
-    8: coming soon...
+    8: silver
+    9: gold
+    10: coming soon...
 
 To do list:
 
@@ -25,7 +27,7 @@ To do list:
     ✓ Control the drilling machine using the WASD buttons
     ✓ The camera moves behind the drilling machine, while pressing against 
        the edges and does not go beyond the boundaries of the map.
-    ✘ Darkening around the drilling machine at a depth of 3 blocks
+    ✓ Darkening around the drilling machine at a depth of 3 blocks
     ✘ Condition of the drilling machine body in the form of a scale.
     ✓ Cargo hold - internal storage of the drilling machine
     ✓ A store where you can sell resources from the hold.

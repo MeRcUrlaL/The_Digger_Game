@@ -8,7 +8,7 @@ export function renderOres(gameField) {
 
 		line += '<div class="line">'
 		for (let j = 0; j < gameField[i].length; j++) {
-			line += `<div class="block y${i}x${j} b${gameField[i][j]}"></div>`
+			line += `<div class="block y${i}x${j} b${gameField[i][j]}" style="filter: brightness(${125 - i * 25}%)"></div>`
 		}	
 		line += '</div>'
 
@@ -16,6 +16,17 @@ export function renderOres(gameField) {
 		line = ''
 	}
 	game.innerHTML = game.innerHTML + gameHTML
+}
+
+export function clearDarkness(x, y, radius) {
+	for (let i = y - radius; i <= y + radius; i++) {
+		for (let j = x - radius; j <= x + radius; j++) {
+			const element = game.querySelector(`.y${i}x${j}`);
+			if (i != y || j != x) {
+				element.removeAttribute('style')
+			}
+		}
+	}
 }
 
 export function renderObjects(posX, posY) {

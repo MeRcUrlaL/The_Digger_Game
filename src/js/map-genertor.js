@@ -5,19 +5,23 @@ import {fuel, maxFuel} from './movement'
 import {storageAmount, maxStorage} from './digging'
 
 const genRate = [
-	{id: 3, rate: 60},
-	{id: 4, rate: 15},
-	{id: 5, rate: 10},
-	{id: 6, rate: 10},
-	{id: 7, rate: 5}
+	{id: 3, rate: 100},   // stone
+	{id: 4, rate: 20},		// coal
+	{id: 5, rate: 15},		// copper
+	{id: 6, rate: 15},		// tin
+	{id: 7, rate: 8},		// iron
+	{id: 8, rate: 5},			// silver
+	{id: 9, rate: 3}			// gold
 ]
 
 const genDepth = [
-	[0],	  // stone id: 3
+	[0],	  		// stone id: 3
 	[3, 40],    // coal id: 4
 	[20, 60],   // copper id: 5
 	[25, 65],		// tin id: 6
 	[35, 75],   // iron id: 7
+	[40, 80],		// silver id: 8
+	[45, 85],		// gold id: 9
 ]
 
 const depthOfMap = 200

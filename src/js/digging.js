@@ -11,6 +11,8 @@ export let storage = {
 	copper: 0,
 	tin: 0,
 	iron: 0,
+	silver: 0,
+	gold: 0,
 }
 
 export function clearStorage() {
@@ -51,6 +53,12 @@ export function dig(current, next) {
       storage.iron += 1
       profit += 7
 			break
+		case 'b8':
+			storage.silver += 1
+			profit += 15
+		case 'b9':
+			storage.gold += 1
+			profit += 18
 	}
 	next.className = `block y${posY}x${posX} b0`
 	++storageAmount
