@@ -20,6 +20,10 @@ module.exports = {
 			'@': path.resolve(__dirname, 'src')
 		}
 	},
+	devServer: {
+		port: 3000,
+		hot: true
+	},
 	plugins: [
 		new CleanWebpackPlugin(),
 		new HtmlWebpackPlugin({

@@ -1,10 +1,12 @@
 import {gameField} from './map-genertor'
 import {dig, isDiggable, isFullStorage} from './digging'
-import {renderFuel, renderDepth, clearDarkness} from './render'
+import {renderFuel, renderDepth, clearDarkness, renderMoney} from './render'
 import {interact} from './interaction'
+import {decreaseMoney, money} from './stations/shop_sell'
+import {oneFuelCost} from './stations/fuel'
 
-const fuelForMove = 0.5
-const fuelForDig = 2
+export const fuelForMove = 0.5
+export const fuelForDig = 2
 
 const speed = 1400
 
@@ -25,7 +27,7 @@ export function increaseFuel(value) {
 
 export let maxFuel = 40
 export function increaseMaxFuel(value) {
-	maxFuel =+ value
+	maxFuel += value
 }
 
 let current = game.querySelector(`.y${posY}x${posX}`)
@@ -35,7 +37,9 @@ function timeOut(timeout) {
 	timer = setTimeout(() => timer = clearTimeout(timer), timeout)
 }
 
-window.addEventListener('keydown', (ev) => {
+window.addEventListener('keydown', listenerHandler)
+
+export function listenerHandler (ev) {
 	if (!timer && ev.keyCode == '87') {
 		moveY(-1)
 		timeOut(1500 - speed)
@@ -51,7 +55,7 @@ window.addEventListener('keydown', (ev) => {
 	} else if (ev.keyCode == '69') {
 		interact()
 	}
-})
+}
 
 function moveX(direction) {
 	current = game.querySelector(`.y${posY}x${posX}`)
@@ -78,7 +82,7 @@ function moveY(direction) {
 }
 
 function move(current, next, direction) {
-	if (!isDiggable(next) && fuel >= 1) {
+	if (!isDiggable(next) && fuel >= fuelForMove) {
 		current.classList.remove('b999')
 		next.classList.add('b999')
 		moveDirection(current, next, direction)
@@ -87,11 +91,9 @@ function move(current, next, direction) {
 			fuel -= fuelForMove
 			renderFuel(fuel, maxFuel, posY)
 		}
-		if (posY >= visionRadius) {
-			clearDarkness(posX, posY, visionRadius)
-		}
+		clearDarkness(posX, posY, visionRadius)
 		renderDepth(posY)
-	} else if (!isFullStorage() && fuel >=2) {
+	} else if (!isFullStorage() && fuel >= fuelForDig) {
 		dig(current, next)
 		current.classList.remove('b999')
 		next.classList.add('b999')
@@ -101,19 +103,17 @@ function move(current, next, direction) {
 			fuel -= fuelForDig
 			renderFuel(fuel, maxFuel, posY)
 		}
-		if (posY >= visionRadius) {
-			clearDarkness(posX, posY, visionRadius)
-		}
+		clearDarkness(posX, posY, visionRadius)
 		renderDepth(posY)
 	} else {
 		preventMove(direction)
 		if (fuel < fuelForMove) {
-			// gameOver()
+			outOfFuel()
 		}
 	}
 }
 
-function camFollow() {
+export function camFollow() {
 	const drill = document.querySelector('.b999')
 	drill.scrollIntoView({block: "center",inline: "center", behavior: "smooth"})
 	// window.scrollTo(document.querySelector('.b999').offsetLeft - window.visualViewport.width / 2 + 25, document.querySelector('.b999').offsetTop - window.visualViewport.height / 2 + 25)
@@ -162,5 +162,71 @@ function moveDirection(current, next, direction) {
 	} else {
 		current.style.backgroundImage = ''
 		next.style.backgroundImage = "url(./img/drillGroundL.png)"
+	}
+}
+
+export function teleportTo(x, y) {
+	const current = game.querySelector(`.y${posY}x${posX}`)
+	const next = game.querySelector(`.y${y}x${x}`)
+
+	posX = x
+	posY = y
+
+	current.classList.remove('b999')
+	next.classList.add('b999')
+
+	moveDirection(current, next, 'left')
+	camFollow()
+	if (posY >= visionRadius) {
+		next.removeAttribute('style')
+		clearDarkness(posX, posY, visionRadius)
+	}
+}
+
+export function outOfFuel() {
+	window.removeEventListener('keydown', listenerHandler)
+	const outOfFuelBlock = document.querySelector('.out-of-fuel')
+	const cancelBtn = outOfFuelBlock.querySelector('.out-of-fuel__cancel')
+	const buyOneFuel = outOfFuelBlock.querySelector('.buy-one-fuel')
+	const toSurface = outOfFuelBlock.querySelector('.to-surface')
+
+	outOfFuelBlock.style.display = 'block'
+
+	buyOneFuel.innerText = `Buy one fuel: ${oneFuelCost * 4}$`
+	toSurface.innerText = `Onto the surface: ${posY * 3}$`
+
+
+	cancelBtn.addEventListener('click', hideMenu)
+	buyOneFuel.addEventListener('click', buyFuel)
+	toSurface.addEventListener('click', goToSurface)
+
+	function hideMenu() {
+		outOfFuelBlock.style.display = 'none'
+		cancelBtn.removeEventListener('click', hideMenu)
+		buyOneFuel.removeEventListener('click', buyFuel)
+		toSurface.removeEventListener('click', goToSurface)
+		window.addEventListener('keydown', listenerHandler)
+	}
+
+	function buyFuel() {
+		// console.log('1fuel');
+		if (money >= oneFuelCost * 4) {
+			decreaseMoney(oneFuelCost * 4)
+			increaseFuel(1)
+			renderFuel(fuel, maxFuel, posY)
+			renderMoney(money)
+		}
+	}
+
+	function goToSurface() {
+		hideMenu()
+		// console.log('tosurface');
+		if (money >= posY * 3) {
+			increaseFuel(fuelForMove)
+			renderFuel(fuel, maxFuel)
+			decreaseMoney(posY * 3)
+			renderMoney(money)
+			teleportTo(11, 0)
+		}
 	}
 }

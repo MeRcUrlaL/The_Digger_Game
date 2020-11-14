@@ -1,5 +1,6 @@
 import {storageAmount, maxStorage, profit, clearStorage, clearProfit, storage} from '../digging'
 import {renderMoney, renderStorage} from '../render'
+import {listenerHandler} from '../movement'
 
 export let money = 0
 
@@ -40,6 +41,7 @@ export function showShopMenu() {
 		shop.style.display = 'none'
 		cancelButton.removeEventListener('click', hideShopMenu)
 		sellButton.removeEventListener('click', sellOres)
+		window.addEventListener('keydown', listenerHandler)
 	}
 
 	function renderCountOfOres() {

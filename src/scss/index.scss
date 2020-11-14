@@ -11,11 +11,16 @@
 }
 
 body {
+    overflow: hidden;
+}
+
+.container {
     background-image: url(../img/enviourment.png);
     color: black;
     background-repeat: no-repeat;
-    overflow: hidden;
     font-family: 'Pixel';
+    height: 500px;
+    width: 2000px;
 }
 
 .stat-item {
@@ -54,11 +59,43 @@ body {
 }
 
 .fuel {
-    position: fixed;
+    min-width: 100px;
+    height: 32px;
+    padding: 0 5px;
     top: 20px;
     left: 20px;
     font-size: 30px;
     z-index: 999;
+}
+
+.fuel-warning {
+    background-color: rgba(255, 225, 0, 0.45);
+}
+
+.fuel-danger {
+    background-color: rgba(255, 0, 0, 0.45);
+}
+
+.depth {
+    height: 32px;
+    min-width: 100px;
+    padding: 0 10px;
+
+    border-top: none;
+    left: 20px;
+    top: 56px
+}
+
+.alert {
+    position: fixed;
+    width: 50%;
+    color: orange;
+    font-size: 45px;
+    z-index: 999;
+
+    top: 20px;
+    left: 25%;
+    text-align: center;
 }
 
 #game {
@@ -180,20 +217,15 @@ body {
 }
 
 .cancel {
+    background: rgba(255, 255, 255, 0.2);
+    border: 2px solid rgb(65, 65, 65);
+    border-radius: 2px;
     font-family: 'Pixel';
     position: absolute;
     font-size: 15px;
     line-height: 1px;
     width: 20px;
     height: 20px;
-}
-
-.shop__cancel {
-    top: 10px;
-    right: 10px;
-}
-
-.upgrade__cancel {
     top: 10px;
     right: 10px;
 }
@@ -206,13 +238,13 @@ body {
     background: rgba(255, 255, 255, 0.2);
     border: 2px solid rgb(65, 65, 65);
     border-radius: 2px;
+    padding: 5px;
+    padding-top: 0px;
 }
 
 .shop__sell {
     margin-top: 7px;
     margin-right: 20px;
-    padding: 5px;
-    padding-top: 0px;
 }
 
 .fuel-station {
@@ -231,6 +263,7 @@ body {
     top: 20vh;
     overflow-y: auto;
     text-align: center;
+    user-select: none;
 }
 
 .header {
@@ -238,11 +271,6 @@ body {
     display: block;
     text-align: center;
     margin-top: 10px;
-}
-
-.fuel__cancel {
-    top: 10px;
-    right: 10px;
 }
 
 .buy-piece-fuel, .buy-fuel {
@@ -264,31 +292,68 @@ progress {
     display: flex;
 }
 
+
 .upgrade-item {
     cursor: pointer;
-    margin-left: 10px;
-    width: 90px;
-    height: 90px;
-    border: black solid 1px ;
-    padding: 5px;
+    text-transform: capitalize;
+    margin-right: 10px;
+    margin-top: 10px;
+    padding-top: 98px;
+    background-repeat: no-repeat;
+    background-size: contain;
+    vertical-align: top;
+
+    width: 100px;
+    height: 2px;
+    border: rgba(0, 0, 0, 0.2) solid 1px ;
+}
+
+.upgrade-item span {
+    display: block;
+    font-size: 13px;
+}
+
+.upgrade-item .upgrade-title {
+    font-size: 16px;
 }
 
 .upgrade-tank {
     background-image: url(../img/upgrade_fuel.png);
-    background-size: cover;
 }
 
 .upgrade-storage {
     background-image: url(../img/upgrade_storage.png);
-    background-size: cover;
 }
 
-.depth {
-    height: 32px;
-    min-width: 100px;
-    padding: 0 10px;
-    text-align: left;
+.out-of-fuel {
+    height: 30vh;
+    width: 50vw;
+    left: 25vw;
+    top: 35vh;
+    overflow-y: auto;
+    text-align: center;  
+}
 
-    left: 20px;
-    top: 70px
+.out-of-fuel > .header {
+    margin-bottom: 20px;
+    color: rgb(145, 82, 0);
+}
+
+.teleport {
+    height: 30vh;
+    width: 50vw;
+    left: 25vw;
+    top: 35vh;
+    overflow-y: auto;
+    text-align: center; 
+}
+
+.teleport > .header {
+    margin-bottom: 20px;
+}
+
+.teleport > #x-coord,
+.teleport > #y-coord {
+    padding-left: 20px;
+    padding-bottom: 5px;
 }

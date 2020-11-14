@@ -1,4 +1,4 @@
-#The digger game v. 1.1.5B
+#The digger game v. 1.1.8B
 
 You can try the game at the link: [Digger](q90175e4.beget.tech)
 
@@ -41,6 +41,6 @@ To do list:
     ✓ The mechanics of speed
     ✘ Mechanics of ore hardness
     ✘ Preload and game menu
-    ✘ If you run out of fuel, a pop-up window with the ability to instantly 
+    ✓ If you run out of fuel, a pop-up window with the ability to instantly 
        rise to the surface 3$/block on the Y axis or refuel oneFuel * 2$/unit.fuels
     ✘ Saving and loading the game

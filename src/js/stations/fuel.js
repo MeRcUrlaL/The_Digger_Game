@@ -1,9 +1,9 @@
 import {money, decreaseMoney} from './shop_sell'
-import {fuel, maxFuel, increaseFuel} from '../movement'
+import {fuel, maxFuel, increaseFuel, listenerHandler} from '../movement'
 import {renderMoney, renderFuel} from '../render'
 
 
-const oneFuelCost = 0.5
+export const oneFuelCost = 0.5
 const fuelStation = document.querySelector('.fuel-station')
 
 export function showFuelMenu() {
@@ -42,6 +42,7 @@ export function showFuelMenu() {
 		cancelButton.removeEventListener('click', hideFuelMenu)
 		buyOneFuelButton.removeEventListener('click', buyOneFuel)
 		buyFullTankButton.removeEventListener('click', buyFullTank)
+		window.addEventListener('keydown', listenerHandler)
 	}
 
 	function renderFuelCost() {

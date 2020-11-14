@@ -1,7 +1,7 @@
 import {renderOres, renderObjects, renderFuel, renderStorage, renderMoney} from './render'
 import {posX, posY} from './movement'
 import {money} from './stations/shop_sell'
-import {fuel, maxFuel} from './movement'
+import {fuel, maxFuel, camFollow} from './movement'
 import {storageAmount, maxStorage} from './digging'
 
 const genRate = [
@@ -24,7 +24,8 @@ const genDepth = [
 	[45, 85],		// gold id: 9
 ]
 
-const depthOfMap = 200
+export const heightOfMap = 200
+export const widthOfMap = 42
 
 export let gameField = [
 	[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
@@ -38,13 +39,14 @@ export function generateMap() {
   renderFuel(fuel, maxFuel, posY)
   renderStorage(storageAmount, maxStorage)
 	renderMoney(money)
+	camFollow()
 }
 
 function generateMapArray(gameField) {
 	let rnd
-	for (let i = 2; i < depthOfMap; i++){ 
+	for (let i = 2; i < heightOfMap; i++){ 
 		gameField.push([])
-		for (let j = 2; j < 42; j++) {
+		for (let j = 2; j < widthOfMap; j++) {
 
 			let sum = 0
 		
