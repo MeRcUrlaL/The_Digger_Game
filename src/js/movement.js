@@ -8,7 +8,11 @@ import {oneFuelCost} from './stations/fuel'
 export const fuelForMove = 0.5
 export const fuelForDig = 2
 
-const speed = 1400
+export let speed = 1000
+
+export function increaseSpeed(value) {
+	speed += value
+}
 
 const game = document.getElementById('game')
 
@@ -209,7 +213,6 @@ export function outOfFuel() {
 	}
 
 	function buyFuel() {
-		// console.log('1fuel');
 		if (money >= oneFuelCost * 4) {
 			decreaseMoney(oneFuelCost * 4)
 			increaseFuel(1)
@@ -220,7 +223,6 @@ export function outOfFuel() {
 
 	function goToSurface() {
 		hideMenu()
-		// console.log('tosurface');
 		if (money >= posY * 3) {
 			increaseFuel(fuelForMove)
 			renderFuel(fuel, maxFuel)

@@ -20,6 +20,25 @@ export function renderOres(gameField) {
 	game.innerHTML = game.innerHTML + gameHTML
 }
 
+export function renderUpgrades(upgradeList) {
+	const listElement = document.querySelector('.upgrade-list')
+	listElement.innerHTML = ''
+
+	for(let i = 0; i < upgradeList.length; i ++) {
+		listElement.innerHTML += `<div class="upgrade-item ${upgradeList[i].name}-upgrade" style="background-image: url(${upgradeList[i].imageURL});"><span class="upgrade-title">${upgradeList[i].title}</span><span class="cost${i}">Cost: ${upgradeList[i].cost}$</span> <span class="inc${i}">Increase: ${upgradeList[i].increase}</span></div>`
+	}
+}
+
+export function updateUpgradeItems(upgradeList) {
+	for(let i = 0; i < upgradeList.length; i++){
+		const itemCost = document.querySelector(`.cost${i}`)
+		const itemIncrease = document.querySelector(`.inc${i}`)
+
+		itemCost.innerText = `Cost: ${upgradeList[i].cost}$`
+		itemIncrease.innerText = `Increase: ${upgradeList[i].increase}`
+	}
+}
+
 export function clearDarkness(x, y, radius) {
 	for (let i = y - radius; i <= y + radius; i++) {
 		for (let j = x - radius; j <= x + radius; j++) {
