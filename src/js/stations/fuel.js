@@ -1,5 +1,4 @@
-import {money, decreaseMoney} from './shop_sell'
-import {fuel, maxFuel, increaseFuel, listenerHandler} from '../movement'
+import {listenerHandler, digger} from '../movement'
 import {renderMoney, renderFuel} from '../render'
 
 
@@ -7,7 +6,7 @@ export const oneFuelCost = 0.5
 const fuelStation = document.querySelector('.fuel-station')
 
 export function showFuelMenu() {
-	let fuelRequired = maxFuel - fuel
+	let fuelRequired = digger.maxFuel - digger.fuel
 	renderFuelCost()
 	fuelStation.style.display = 'block'
 	const cancelButton = fuelStation.querySelector('.fuel__cancel')
@@ -19,21 +18,20 @@ export function showFuelMenu() {
 	buyFullTankButton.addEventListener('click', buyFullTank)
 
 	function buyOneFuel() {
-		if (money >= oneFuelCost && fuelRequired > 0) {
-			increaseFuel(1)
-			decreaseMoney(oneFuelCost)
+		if (digger.money >= oneFuelCost && fuelRequired > 0) {
+			digger.increaseFuel(1)
+			digger.decreaseMoney(oneFuelCost)
 		}
-		renderFuel(fuel, maxFuel)
+		renderFuel()
 		renderFuelCost()
 	}
 
 	function buyFullTank() {
-		if (money >= fuelRequired * oneFuelCost && fuelRequired > 0) {
-			increaseFuel(fuelRequired)
-			decreaseMoney(fuelRequired * oneFuelCost)
+		if (digger.money >= fuelRequired * oneFuelCost && fuelRequired > 0) {
+			digger.increaseFuel(fuelRequired)
+			digger.decreaseMoney(fuelRequired * oneFuelCost)
 		}
-		renderFuel(fuel, maxFuel)
-		renderFuelCost()
+		renderFuel()
 		hideFuelMenu()
 	}
 	
@@ -47,8 +45,8 @@ export function showFuelMenu() {
 
 	function renderFuelCost() {
 		const fuelCost = fuelStation.querySelector('.fuel-cost')
-		fuelRequired = maxFuel - fuel
-		renderMoney(money)
+		fuelRequired = digger.maxFuel - digger.fuel
+		renderMoney()
 		fuelCost.innerText = `fuel cost: ${fuelRequired * oneFuelCost}$`
 	}
 }

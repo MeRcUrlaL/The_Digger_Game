@@ -1,7 +1,8 @@
-import {digger, listenerHandler} from './movement'
+import {listenerHandler, digger} from './movement'
 import {showShopMenu} from './stations/shop_sell'
 import {showFuelMenu} from './stations/fuel'
 import {showUpgradeMenu} from './stations/upgrade'
+
 
 
 export function interact() {

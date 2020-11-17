@@ -3,6 +3,8 @@ import {openMenu} from './render'
 import './debug'
 import '../scss/index.scss'
 
+
+
 const menuBtn = document.querySelector('.open-menu')
 const getParams = window
   .location
@@ -20,7 +22,6 @@ const loadNum = getParams['loadNum']
 
 
 menuBtn.addEventListener('click', openMenu)
-console.log(loadNum, 'in game.js')
 
 
 // game.addEventListener('click', (ev) => {

@@ -1,40 +1,89 @@
 import {gameField} from './map-genertor'
-import {dig, isDiggable, isFullStorage} from './digging'
-import {renderFuel, renderDepth, clearDarkness, renderMoney, renderSpeed, openMenu} from './render'
+import {dig, isDiggable} from './digging'
+import {renderFuel, renderDepth, clearDarkness, renderMoney, renderSpeed, openMenu, renderCargo} from './render'
 import {interact} from './interaction'
-import {decreaseMoney, money} from './stations/shop_sell'
 import {oneFuelCost} from './stations/fuel'
 
-export const fuelForMove = 0.5
-export const fuelForDig = 2
 
 export let digger = {
 	posX: 12,
 	posY: 0,
+	money: 0,
+	fuel: 12,
+	maxFuel: 40,
+	cargo: 0,
+	maxCargo: 10,
+	speed: 1010,
+	profit: 0,
+	storage: {
+		dirt: 0,
+		stone: 0,
+		coal: 0,
+		copper: 0,
+		tin: 0,
+		iron: 0,
+		silver: 0,
+		gold: 0,
+	},
+	increaseMoney(value){
+		this.money += value
+	},
+	decreaseMoney(value){
+		this.money -= value
+	},
+	increaseFuel(value){
+		this.fuel += value
+	},
+	increaseMaxFuel(value){
+		this.maxFuel += value
+	},
+	decreaseFuel(value){
+		this.fuel -= value
+	},
+	increaseCargo(value){
+		this.cargo += value
+	},
+	clearCargo(){
+		this.cargo = 0
+	},
+	increaseMaxCargo(value){
+		this.maxCargo += value
+	},
+	isFullHold() {
+		if (this.cargo >= this.maxCargo){
+			return true
+		}
+		return false
+	},
+	increaseSpeed(value) {
+		this.speed += value
+		renderSpeed()
+	},
+	increaseProfit(value) {
+		this.profit += value
+	},
+	clearProfit() {
+		this.profit = 0
+	},
+	clearStorage() {
+		for (const ore in this.storage) {
+			this.storage[ore] = 0
+		}
+	}
 }
 
-export let speed = 1010
-
-export function increaseSpeed(value) {
-	speed += value
-	renderSpeed(speed)
+export function loadDigger(value) {
+	digger = value
 }
+
+export const fuelForMove = 0.5
+export const fuelForDig = 2
 
 const game = document.getElementById('game')
 
 export let visionRadius = 1
 export function increaseVision(value) {
 	visionRadius += value
-}
-
-export let fuel = 40
-export function increaseFuel(value) {
-	fuel += value
-}
-
-export let maxFuel = 40
-export function increaseMaxFuel(value) {
-	maxFuel += value
 }
 
 let current = game.querySelector(`.y${digger.posY}x${digger.posX}`)
@@ -49,16 +98,16 @@ window.addEventListener('keydown', listenerHandler)
 export function listenerHandler (ev) {
 	if (!timer && ev.keyCode == '87') {
 		moveY(-1)
-		timeOut(1500 - speed)
+		timeOut(1500 - digger.speed)
 	} else if (!timer && ev.keyCode == '65') {
 		moveX(-1)
-		timeOut(1500 - speed)
+		timeOut(1500 - digger.speed)
 	} else if (!timer && ev.keyCode == '83') {
 		moveY(1)
-		timeOut(1500 - speed)
+		timeOut(1500 - digger.speed)
 	} else if (!timer && ev.keyCode == '68') {
 		moveX(1)
-		timeOut(1500 - speed)
+		timeOut(1500 - digger.speed)
 	} else if (ev.keyCode == '69') {
 		interact()
 	} else if (ev.keyCode == '27'){
@@ -91,32 +140,33 @@ function moveY(direction) {
 }
 
 function move(current, next, direction) {
-	if (!isDiggable(next) && fuel >= fuelForMove) {
+	if (!isDiggable(next) && digger.fuel >= fuelForMove) {
+		renderCargo()
 		current.classList.remove('b999')
 		next.classList.add('b999')
 		moveDirection(current, next, direction)
 		camFollow()
 		if(digger.posY > 0) {
-			fuel -= fuelForMove
-			renderFuel(fuel, maxFuel, digger.posY)
+			digger.decreaseFuel(fuelForMove)
+			renderFuel()
 		}
 		clearDarkness(digger.posX, digger.posY, visionRadius)
 		renderDepth(digger.posY)
-	} else if (!isFullStorage() && fuel >= fuelForDig) {
+	} else if (!digger.isFullHold() && digger.fuel >= fuelForDig) {
 		dig(current, next)
 		current.classList.remove('b999')
 		next.classList.add('b999')
 		moveDirection(current, next, direction)
 		camFollow()
 		if(digger.posY > 0) {
-			fuel -= fuelForDig
-			renderFuel(fuel, maxFuel, digger.posY)
+			digger.decreaseFuel(fuelForDig)
+			renderFuel()
 		}
 		clearDarkness(digger.posX, digger.posY, visionRadius)
 		renderDepth(digger.posY)
 	} else {
 		preventMove(direction)
-		if (fuel < fuelForMove) {
+		if (digger.fuel < fuelForMove) {
 			outOfFuel()
 		}
 	}
@@ -218,21 +268,21 @@ export function outOfFuel() {
 	}
 
 	function buyFuel() {
-		if (money >= oneFuelCost * 4) {
-			decreaseMoney(oneFuelCost * 4)
-			increaseFuel(1)
-			renderFuel(fuel, maxFuel, digger.posY)
-			renderMoney(money)
+		if (digger.money >= oneFuelCost * 4) {
+			digger.decreaseMoney(oneFuelCost * 4)
+			digger.increaseFuel(1)
+			renderFuel()
+			renderMoney()
 		}
 	}
 
 	function goToSurface() {
 		hideMenu()
-		if (money >= digger.posY * 3) {
-			increaseFuel(fuelForMove)
-			renderFuel(fuel, maxFuel)
-			decreaseMoney(digger.posY * 3)
-			renderMoney(money)
+		if (digger.money >= digger.posY * 3) {
+			digger.increaseFuel(fuelForMove)
+			renderFuel()
+			digger.decreaseMoney(digger.posY * 3)
+			renderMoney()
 			teleportTo(11, 0)
 		}
 	}

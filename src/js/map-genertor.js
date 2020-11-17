@@ -1,16 +1,14 @@
-import {renderOres, renderObjects, renderFuel, renderStorage, renderMoney, renderSpeed, renderLightOnLoad} from './render'
-import {digger, speed} from './movement'
-import {money} from './stations/shop_sell'
-import {fuel, maxFuel, camFollow} from './movement'
-import {storageAmount, maxStorage} from './digging'
+import {renderOres, renderObjects, renderFuel, renderCargo, renderMoney, renderSpeed, renderLightOnLoad} from './render'
+import {camFollow, digger} from './movement'
 import {loadGame} from './saving'
+
 
 const genRate = [
 	{id: 3, rate: 100},   // stone
 	{id: 4, rate: 20},		// coal
 	{id: 5, rate: 15},		// copper
 	{id: 6, rate: 15},		// tin
-	{id: 7, rate: 8},		// iron
+	{id: 7, rate: 8},		  // iron
 	{id: 8, rate: 5},			// silver
 	{id: 9, rate: 3}			// gold
 ]
@@ -33,7 +31,7 @@ export let gameField = [
 	[2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2]
 ]
 
-export function setGameField(value) {
+export function loadGameField(value) {
 	gameField = value
 }
 
@@ -42,20 +40,20 @@ export function generateMap(loadNum) {
 		loadGame(loadNum)
 		renderOres(gameField)
 		renderObjects(digger.posX, digger.posY)
-		renderFuel(fuel, maxFuel, digger.posY)
-		renderStorage(storageAmount, maxStorage)
-		renderSpeed(speed)
-		renderMoney(money)
+		renderFuel()
+		renderCargo()
+		renderSpeed()
+		renderMoney()
 		renderLightOnLoad(gameField)
 		camFollow()
 	} else {
 		generateMapArray(gameField)
 		renderOres(gameField)
 		renderObjects(digger.posX, digger.posY)
-		renderFuel(fuel, maxFuel, digger.posY)
-		renderStorage(storageAmount, maxStorage)
-		renderSpeed(speed)
-		renderMoney(money)
+		renderFuel()
+		renderCargo()
+		renderSpeed()
+		renderMoney()
 		camFollow()
 	}
 }

@@ -1,12 +1,14 @@
-import {gameField, setGameField} from './map-genertor'
+import {gameField, loadGameField} from './map-genertor'
+import {digger, loadDigger} from './movement'
 
 export function saveGame() {
 	//Temporarily saving in localStorage
-	localStorage.setItem('load1', JSON.stringify(gameField))
+	localStorage.setItem('load1', [JSON.stringify(gameField),JSON.stringify(digger)])
 }
 
 export function loadGame(saveKey) {
-	setGameField(JSON.parse(localStorage.getItem(saveKey)))
+	loadGameField(JSON.parse(localStorage.getItem(saveKey))[0])
+	loadDigger(JSON.parse(localStorage.getItem(saveKey))[1])
 }
 
 

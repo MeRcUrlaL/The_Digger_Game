@@ -1,5 +1,6 @@
-import {fuelForMove, listenerHandler, visionRadius} from './movement'
+import {fuelForMove, listenerHandler, visionRadius, digger} from './movement'
 import {saveGame} from './saving'
+
 
 
 export function renderOres(gameField) {
@@ -70,19 +71,19 @@ export function renderObjects(posX, posY) {
 	game.querySelector(`.y${posY}x${posX}`).classList.add('b999')
 }
 
-export function renderFuel(fuel, maxFuel, posY) {
+export function renderFuel() {
 	const fuelView = document.querySelector('.fuel')
 	const alertText = document.querySelector('.alert')
 
 	
-	if (fuel / fuelForMove + fuelForMove < posY) {
-		fuelView.outerHTML = `<div class="fuel stat-item fuel-danger">Fuel: ${fuel}/${maxFuel}</div>`
+	if (digger.fuel / fuelForMove + fuelForMove < digger.posY) {
+		fuelView.outerHTML = `<div class="fuel stat-item fuel-danger">Fuel: ${digger.fuel}/${digger.maxFuel}</div>`
 		alertText.outerHTML = '<div class="alert" style="color: darkred;">← Not enough fuel to go up</div>'
-  } else if (posY > 0 && fuel / fuelForMove - fuelForMove * 15 < posY) {
-		fuelView.outerHTML = `<div class="fuel stat-item fuel-warning">Fuel: ${fuel}/${maxFuel}</div>`
+  } else if (digger.posY > 0 && digger.fuel / fuelForMove - fuelForMove * 15 < digger.posY) {
+		fuelView.outerHTML = `<div class="fuel stat-item fuel-warning">Fuel: ${digger.fuel}/${digger.maxFuel}</div>`
 		alertText.outerHTML = '<div class="alert">← Fuel is running out!</div>'
   } else {
-		fuelView.outerHTML = `<div class="fuel stat-item">Fuel: ${fuel}/${maxFuel}</div>`
+		fuelView.outerHTML = `<div class="fuel stat-item">Fuel: ${digger.fuel}/${digger.maxFuel}</div>`
 		alertText.innerText = ''
 	}
 }
@@ -107,16 +108,16 @@ export function openMenu() {
   }
 }
 
-export function renderStorage(storage, maxStorage) {
-	const storageView = document.querySelector('.storage')
+export function renderCargo() {
+	const cargoView = document.querySelector('.cargo')
 
-  storageView.innerText = `${storage}/${maxStorage}`
+  cargoView.innerText = `${digger.cargo}/${digger.maxCargo}`
 }
 
-export function renderMoney(money) {
+export function renderMoney() {
 	const moneyView = document.querySelector('.money')
 
-  moneyView.innerText = `${money}$`
+  moneyView.innerText = `${digger.money}$`
 }
 
 export function renderDepth(posY) {
@@ -125,8 +126,8 @@ export function renderDepth(posY) {
 	depthView.innerText = `Depth: ${posY}`
 }
 
-export function renderSpeed(speed) {
+export function renderSpeed() {
 	const speedView = document.querySelector('.speed')
 
-	speedView.innerText = `Speed: ${speed - 1000}`
+	speedView.innerText = `Speed: ${digger.speed - 1000}`
 }

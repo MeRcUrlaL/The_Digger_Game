@@ -1,18 +1,9 @@
-import {storageAmount, maxStorage, profit, clearStorage, clearProfit, storage} from '../digging'
-import {renderMoney, renderStorage} from '../render'
-import {listenerHandler} from '../movement'
+import {renderMoney, renderCargo} from '../render'
+import {listenerHandler, digger} from '../movement'
 
-export let money = 0
 
 const shop = document.querySelector('.shop')
 
-export function increaseMoney(value) {
-	money += value
-}
-
-export function decreaseMoney(value) {
-	money -= value
-}
 
 export function showShopMenu() {
 	renderCountOfOres()
@@ -22,19 +13,19 @@ export function showShopMenu() {
 
 	cancelButton.addEventListener('click', hideShopMenu)
 	sellButton.addEventListener('click', sellOres)
-	shop.querySelector('.shop__info').innerText = `Sell for: ${profit}$`
+	shop.querySelector('.shop__info').innerText = `Sell for: ${digger.profit}$`
 	
 	function sellOres() {
-		money += profit
-		renderMoney(money)
+		digger.increaseMoney(digger.profit)
+		renderMoney()
 
-		clearStorage()
-		clearProfit()
-		shop.querySelector('.shop__info').innerText = `Sell for: ${profit}$`
+		digger.clearCargo()
+		digger.clearProfit()
+		shop.querySelector('.shop__info').innerText = `Sell for: ${digger.profit}$`
 	
-		renderStorage(storageAmount, maxStorage)
+		renderCargo()
 		hideShopMenu()
-		clearCountOfOres()
+		digger.clearStorage()
 	}
 	
 	function hideShopMenu() {
@@ -46,19 +37,11 @@ export function showShopMenu() {
 
 	function renderCountOfOres() {
 		let oreList = ''
-		for (const ore in storage) {
-			if (storage[ore] > 0) {
-				oreList += `<div><div class="shop__element ${ore}"><span>${ore}: ${storage[ore]}</span></div></div>`
+		for (const ore in digger.storage) {
+			if (digger.storage[ore] > 0) {
+				oreList += `<div><div class="shop__element ${ore}"><span>${ore}: ${digger.storage[ore]}</span></div></div>`
 			}
 		}
 		shop.querySelector('.shop__container').innerHTML = oreList
-	}
-	
-	function clearCountOfOres() {
-		for (const ore in storage) {
-			if (storage[ore] > 0) {
-				storage[ore] = 0
-			}
-		}
 	}
 }

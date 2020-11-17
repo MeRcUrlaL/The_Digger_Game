@@ -1,12 +1,11 @@
 //images
-import storageImgSrc from '@/img/upgrade_storage.png'
+import hullImgSrc from '@/img/upgrade_hull.png'
 import tankImgSrc from '@/img/upgrade_fuel.png'
 import speedImgSrc from '@/img/upgrade_speed.png'
 
-import {increaseMaxFuel, fuel, maxFuel, listenerHandler, speed, increaseSpeed} from '../movement'
-import {money, decreaseMoney} from './shop_sell'
-import {renderStorage, renderFuel, renderMoney, renderUpgrades, updateUpgradeItems} from '../render'
-import {increaseMaxStorage, storageAmount, maxStorage} from '../digging'
+import {listenerHandler, digger} from '../movement'
+import {renderCargo, renderFuel, renderMoney, renderUpgrades, updateUpgradeItems} from '../render'
+
 
 
 // Array containing upgrades for Upgrade Station
@@ -22,21 +21,21 @@ const upgradeList = [{
 		return 50 + 10 * this.level
 	},
 	upgrade: function () {
-		if (money >= this.cost) {
-			decreaseMoney(this.cost)
-			increaseMaxFuel(this.increase)
-			renderFuel(fuel, maxFuel)
-			renderMoney(money)
+		if (digger.money >= this.cost) {
+			digger.decreaseMoney(this.cost)
+			digger.increaseMaxFuel(this.increase)
+			renderFuel()
+			renderMoney()
 			this.level++
 			updateUpgradeItems(upgradeList)
 		}
 	} 
 },
 {
-	name: "storage",
-	title: "Storage Upgrade",
+	name: "hull",
+	title: "Hull Upgrade",
 	level: 1,
-	imageURL: storageImgSrc,
+	imageURL: hullImgSrc,
 	get cost() {
 		return 90 * this.level - 20
 	},
@@ -44,11 +43,11 @@ const upgradeList = [{
 		return 10 + 10 * this.level
 	},
 	upgrade() {
-		if (money >= this.cost) {
-			decreaseMoney(this.cost)
-			increaseMaxStorage(this.increase)
-			renderStorage(storageAmount, maxStorage)
-			renderMoney(money)
+		if (digger.money >= this.cost) {
+			digger.decreaseMoney(this.cost)
+			digger.increaseMaxCargo(this.increase)
+			renderCargo()
+			renderMoney()
 			this.level++
 			updateUpgradeItems(upgradeList)
 		}
@@ -66,10 +65,10 @@ const upgradeList = [{
 		return 10 * this.level
 	},
 	upgrade() {
-		if (money >= this.cost && speed <= 1350) {
-			decreaseMoney(this.cost)
-			increaseSpeed(this.increase)
-			renderMoney(money)
+		if (digger.money >= this.cost && digger.speed <= 1350) {
+			digger.decreaseMoney(this.cost)
+			digger.increaseSpeed(this.increase)
+			renderMoney()
 			this.level++
 			updateUpgradeItems(upgradeList)
 		}

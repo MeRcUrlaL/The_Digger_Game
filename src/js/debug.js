@@ -1,22 +1,20 @@
-import {increaseFuel, increaseVision, teleportTo} from './movement'
-import {increaseMoney, money} from './stations/shop_sell'
-import {increaseMaxStorage, storageAmount, maxStorage} from './digging'
-import {renderMoney, renderStorage} from './render'
-import {gameField} from './map-genertor'
+import {increaseVision, teleportTo, digger} from './movement'
+import {renderMoney, renderCargo} from './render'
+
 
 
 window.addEventListener('keydown', (ev) => {
 	switch (ev.keyCode) {
 		case 97:
-			increaseFuel(100000)
+			digger.increaseFuel(100000)
 			break
 		case 98:
-      increaseMaxStorage(100000)
-      renderStorage(storageAmount, maxStorage)
+      digger.increaseMaxCargo(100000)
+      renderCargo()
 			break
 		case 99:
-      increaseMoney(100000)
-      renderMoney(money)
+      digger.increaseMoney(100000)
+      renderMoney()
 			break
 		case 100:
 			increaseVision(1)
@@ -25,7 +23,8 @@ window.addEventListener('keydown', (ev) => {
 			showTeleportMenu()
 			break
 		case 102:
-			console.log(gameField)
+			digger.increaseMoney(100)
+			console.log(digger.money)
 	}
 })
 
