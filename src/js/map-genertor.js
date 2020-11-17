@@ -1,8 +1,9 @@
-import {renderOres, renderObjects, renderFuel, renderStorage, renderMoney} from './render'
-import {posX, posY} from './movement'
+import {renderOres, renderObjects, renderFuel, renderStorage, renderMoney, renderSpeed, renderLightOnLoad} from './render'
+import {digger, speed} from './movement'
 import {money} from './stations/shop_sell'
 import {fuel, maxFuel, camFollow} from './movement'
 import {storageAmount, maxStorage} from './digging'
+import {loadGame} from './saving'
 
 const genRate = [
 	{id: 3, rate: 100},   // stone
@@ -32,14 +33,31 @@ export let gameField = [
 	[2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2]
 ]
 
-export function generateMap() {
-	generateMapArray(gameField)
-  renderOres(gameField)
-  renderObjects(posX, posY)
-  renderFuel(fuel, maxFuel, posY)
-  renderStorage(storageAmount, maxStorage)
-	renderMoney(money)
-	camFollow()
+export function setGameField(value) {
+	gameField = value
+}
+
+export function generateMap(loadNum) {
+	if (loadNum){
+		loadGame(loadNum)
+		renderOres(gameField)
+		renderObjects(digger.posX, digger.posY)
+		renderFuel(fuel, maxFuel, digger.posY)
+		renderStorage(storageAmount, maxStorage)
+		renderSpeed(speed)
+		renderMoney(money)
+		renderLightOnLoad(gameField)
+		camFollow()
+	} else {
+		generateMapArray(gameField)
+		renderOres(gameField)
+		renderObjects(digger.posX, digger.posY)
+		renderFuel(fuel, maxFuel, digger.posY)
+		renderStorage(storageAmount, maxStorage)
+		renderSpeed(speed)
+		renderMoney(money)
+		camFollow()
+	}
 }
 
 function generateMapArray(gameField) {

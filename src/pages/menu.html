@@ -1,1 +1,43 @@
-.
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="./favicon.ico">
+  <title>Digger</title>
+</head>
+<body>
+<div class="container">
+  <div class="menu">
+    <h1 class="menu-title">The Digger
+      <span class="version">v.0.1.9Beta</span>
+    </h1>
+
+    <div class="menu-wrapper">
+      <button class="menu-button newgame-button">New Gane</button>
+      <button class="menu-button loading-button">Load Game</button>
+      <button class="menu-button settings-button">Settings</button>
+    </div>
+  </div>
+
+  <div class="menu-item loading" style="display: none;">
+    <button class="cancel loading__cancel"></button>
+    <span class="header">Load game</span>
+    <div class="load-container">
+      <div class="load load1">Save1</div>
+      <div class="load load2">Save2</div>
+      <div class="load load3">Save3</div>
+      <div class="load load4">Save4</div>
+      <div class="load load5">Save5</div>
+    </div>
+    <span class="header not-found"></span>
+  </div>
+
+  <div class="menu-item settings" style="display: none;">
+    <button class="cancel settings__cancel"></button>
+    <span class="header">Settings</span>
+    <span class="header">---</span>
+  </div>
+</div>
+</body>
+</html>

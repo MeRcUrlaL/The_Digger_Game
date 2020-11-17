@@ -1,11 +1,11 @@
-import {posX, posY, listenerHandler} from './movement'
+import {digger, listenerHandler} from './movement'
 import {showShopMenu} from './stations/shop_sell'
 import {showFuelMenu} from './stations/fuel'
 import {showUpgradeMenu} from './stations/upgrade'
 
 
 export function interact() {
-	const current = game.querySelector(`.y${posY}x${posX}`)
+	const current = game.querySelector(`.y${digger.posY}x${digger.posX}`)
 
 	if (current.classList.contains('y0x10')) {
 		showShopMenu()

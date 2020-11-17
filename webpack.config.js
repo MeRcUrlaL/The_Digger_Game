@@ -8,9 +8,12 @@ const ASSET_PATH = process.env.ASSET_PATH || './';
 module.exports = {
 	context: path.resolve(__dirname, 'src'),
 	mode: 'development',
-	entry: './js/game.js',
+	entry: {
+		game: './js/game.js',
+		menu: './js/menu.js'
+	},
 	output: {
-		filename: 'bundle.[hash].js',
+		filename: 'bundle-[name].[hash].js',
 		path: path.resolve(__dirname, 'dist'),
 		publicPath: ASSET_PATH
 	},
@@ -27,7 +30,14 @@ module.exports = {
 	plugins: [
 		new CleanWebpackPlugin(),
 		new HtmlWebpackPlugin({
-			template: 'index.html'
+			filename: 'index.html',
+			template: './pages/menu.html',
+			chunks: ['menu']
+		}),
+		new HtmlWebpackPlugin({
+			filename: 'game.html',
+			template: './pages/game.html',
+			chunks: ['game']
 		}),
 		new CopyPlugin({
       patterns: [
@@ -42,7 +52,7 @@ module.exports = {
       ],
 		}),
 		new MiniCssExtractPlugin({
-			filename: 'bundle.[hash].css'
+			filename: 'bundle-[name].[hash].css'
 		})
 	],
 	module: {

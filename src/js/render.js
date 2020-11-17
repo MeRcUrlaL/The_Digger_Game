@@ -1,4 +1,6 @@
-import {fuelForMove} from './movement'
+import {fuelForMove, listenerHandler, visionRadius} from './movement'
+import {saveGame} from './saving'
+
 
 export function renderOres(gameField) {
 	const game = document.getElementById('game')
@@ -54,6 +56,16 @@ export function clearDarkness(x, y, radius) {
 	}
 }
 
+export function renderLightOnLoad(gameField) {
+	for (let y = 1; y < gameField.length; y++) {
+		for (let x = 0; x < gameField[y].length; x++) {
+			if (gameField[y][x] == 0) {
+				clearDarkness(x, y, visionRadius)
+			}
+		}
+	}
+}
+
 export function renderObjects(posX, posY) {
 	game.querySelector(`.y${posY}x${posX}`).classList.add('b999')
 }
@@ -75,6 +87,26 @@ export function renderFuel(fuel, maxFuel, posY) {
 	}
 }
 
+export function openMenu() {
+	const menuSettingsBtn = document.querySelector('.settings')
+	const menuSaveBtn = document.querySelector('.save')
+	const menu = document.querySelector('.menu')
+	const cancelButton = menu.querySelector('.menu__cancel')
+	
+  menu.style.display = 'block'
+
+	cancelButton.addEventListener('click', hideMenu)
+	menuSaveBtn .addEventListener('click', saveGame)
+	window.removeEventListener('keydown', listenerHandler)
+
+  function hideMenu() {
+    menu.style.display = 'none'
+		cancelButton.removeEventListener('click', hideMenu)
+		menuSaveBtn.removeEventListener('click', saveGame)
+		window.addEventListener('keydown', listenerHandler)
+  }
+}
+
 export function renderStorage(storage, maxStorage) {
 	const storageView = document.querySelector('.storage')
 
@@ -91,4 +123,10 @@ export function renderDepth(posY) {
 	const  depthView = document.querySelector('.depth')
 
 	depthView.innerText = `Depth: ${posY}`
+}
+
+export function renderSpeed(speed) {
+	const speedView = document.querySelector('.speed')
+
+	speedView.innerText = `Speed: ${speed - 1000}`
 }

@@ -1,4 +1,4 @@
-#The digger game v. 1.1.9B
+#The digger game v. 0.1.9B
 
 You can try the game at the link: [Digger](http://q90175e4.beget.tech)
 

@@ -1,6 +1,6 @@
 import {gameField} from './map-genertor'
 import {dig, isDiggable, isFullStorage} from './digging'
-import {renderFuel, renderDepth, clearDarkness, renderMoney} from './render'
+import {renderFuel, renderDepth, clearDarkness, renderMoney, renderSpeed, openMenu} from './render'
 import {interact} from './interaction'
 import {decreaseMoney, money} from './stations/shop_sell'
 import {oneFuelCost} from './stations/fuel'
@@ -8,21 +8,24 @@ import {oneFuelCost} from './stations/fuel'
 export const fuelForMove = 0.5
 export const fuelForDig = 2
 
-export let speed = 1000
+export let digger = {
+	posX: 12,
+	posY: 0,
+}
+
+export let speed = 1010
 
 export function increaseSpeed(value) {
 	speed += value
+	renderSpeed(speed)
 }
 
 const game = document.getElementById('game')
 
-let visionRadius = 1
+export let visionRadius = 1
 export function increaseVision(value) {
 	visionRadius += value
 }
-
-export let posX = 12
-export let posY = 0
 
 export let fuel = 40
 export function increaseFuel(value) {
@@ -34,7 +37,7 @@ export function increaseMaxFuel(value) {
 	maxFuel += value
 }
 
-let current = game.querySelector(`.y${posY}x${posX}`)
+let current = game.querySelector(`.y${digger.posY}x${digger.posX}`)
 let timer
 
 function timeOut(timeout) {
@@ -58,29 +61,31 @@ export function listenerHandler (ev) {
 		timeOut(1500 - speed)
 	} else if (ev.keyCode == '69') {
 		interact()
+	} else if (ev.keyCode == '27'){
+		openMenu()
 	}
 }
 
 function moveX(direction) {
-	current = game.querySelector(`.y${posY}x${posX}`)
+	current = game.querySelector(`.y${digger.posY}x${digger.posX}`)
 
-	if (direction > 0 && posX < gameField[0].length - 1) {
-		let next = game.querySelector(`.y${posY}x${++posX}`)
+	if (direction > 0 && digger.posX < gameField[0].length - 1) {
+		let next = game.querySelector(`.y${digger.posY}x${++digger.posX}`)
 		move(current, next, 'right')
-	} else if(direction < 0 && posX > 0) {
-		let next = game.querySelector(`.y${posY}x${--posX}`)
+	} else if(direction < 0 && digger.posX > 0) {
+		let next = game.querySelector(`.y${digger.posY}x${--digger.posX}`)
 		move(current, next, 'left')
 	}
 }
 
 function moveY(direction) {
-	current = game.querySelector(`.y${posY}x${posX}`)
+	current = game.querySelector(`.y${digger.posY}x${digger.posX}`)
 
-	if (direction > 0 && posY < gameField.length - 1) {
-		let next = game.querySelector(`.y${++posY}x${posX}`)
+	if (direction > 0 && digger.posY < gameField.length - 1) {
+		let next = game.querySelector(`.y${++digger.posY}x${digger.posX}`)
 		move(current, next, 'down')
-	} else if(direction < 0 && posY > 0) {
-		let next = game.querySelector(`.y${--posY}x${posX}`)
+	} else if(direction < 0 && digger.posY > 0) {
+		let next = game.querySelector(`.y${--digger.posY}x${digger.posX}`)
 		move(current, next, 'up')
 	}
 }
@@ -91,24 +96,24 @@ function move(current, next, direction) {
 		next.classList.add('b999')
 		moveDirection(current, next, direction)
 		camFollow()
-		if(posY > 0) {
+		if(digger.posY > 0) {
 			fuel -= fuelForMove
-			renderFuel(fuel, maxFuel, posY)
+			renderFuel(fuel, maxFuel, digger.posY)
 		}
-		clearDarkness(posX, posY, visionRadius)
-		renderDepth(posY)
+		clearDarkness(digger.posX, digger.posY, visionRadius)
+		renderDepth(digger.posY)
 	} else if (!isFullStorage() && fuel >= fuelForDig) {
 		dig(current, next)
 		current.classList.remove('b999')
 		next.classList.add('b999')
 		moveDirection(current, next, direction)
 		camFollow()
-		if(posY > 0) {
+		if(digger.posY > 0) {
 			fuel -= fuelForDig
-			renderFuel(fuel, maxFuel, posY)
+			renderFuel(fuel, maxFuel, digger.posY)
 		}
-		clearDarkness(posX, posY, visionRadius)
-		renderDepth(posY)
+		clearDarkness(digger.posX, digger.posY, visionRadius)
+		renderDepth(digger.posY)
 	} else {
 		preventMove(direction)
 		if (fuel < fuelForMove) {
@@ -126,22 +131,22 @@ export function camFollow() {
 function preventMove(direction) {
 	switch (direction) {
 		case 'up':
-			++posY
+			++digger.posY
 		break
 		case 'left':
-			++posX
+			++digger.posX
 		break
 		case 'down':
-			--posY
+			--digger.posY
 		break
 		case 'right':
-			--posX
+			--digger.posX
 		break
 	}
 }
 
 function moveDirection(current, next, direction) {
-	if (posY > 0){
+	if (digger.posY > 0){
 		switch (direction) {
 			case 'up':
 				current.style.backgroundImage = ''
@@ -170,20 +175,20 @@ function moveDirection(current, next, direction) {
 }
 
 export function teleportTo(x, y) {
-	const current = game.querySelector(`.y${posY}x${posX}`)
+	const current = game.querySelector(`.y${digger.posY}x${digger.posX}`)
 	const next = game.querySelector(`.y${y}x${x}`)
 
-	posX = x
-	posY = y
+	digger.posX = x
+	digger.posY = y
 
 	current.classList.remove('b999')
 	next.classList.add('b999')
 
 	moveDirection(current, next, 'left')
 	camFollow()
-	if (posY >= visionRadius) {
+	if (digger.posY >= visionRadius) {
 		next.removeAttribute('style')
-		clearDarkness(posX, posY, visionRadius)
+		clearDarkness(digger.posX, digger.posY, visionRadius)
 	}
 }
 
@@ -197,7 +202,7 @@ export function outOfFuel() {
 	outOfFuelBlock.style.display = 'block'
 
 	buyOneFuel.innerText = `Buy one fuel: ${oneFuelCost * 4}$`
-	toSurface.innerText = `Onto the surface: ${posY * 3}$`
+	toSurface.innerText = `Onto the surface: ${digger.posY * 3}$`
 
 
 	cancelBtn.addEventListener('click', hideMenu)
@@ -216,17 +221,17 @@ export function outOfFuel() {
 		if (money >= oneFuelCost * 4) {
 			decreaseMoney(oneFuelCost * 4)
 			increaseFuel(1)
-			renderFuel(fuel, maxFuel, posY)
+			renderFuel(fuel, maxFuel, digger.posY)
 			renderMoney(money)
 		}
 	}
 
 	function goToSurface() {
 		hideMenu()
-		if (money >= posY * 3) {
+		if (money >= digger.posY * 3) {
 			increaseFuel(fuelForMove)
 			renderFuel(fuel, maxFuel)
-			decreaseMoney(posY * 3)
+			decreaseMoney(digger.posY * 3)
 			renderMoney(money)
 			teleportTo(11, 0)
 		}

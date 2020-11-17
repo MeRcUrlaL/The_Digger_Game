@@ -2,6 +2,7 @@ import {increaseFuel, increaseVision, teleportTo} from './movement'
 import {increaseMoney, money} from './stations/shop_sell'
 import {increaseMaxStorage, storageAmount, maxStorage} from './digging'
 import {renderMoney, renderStorage} from './render'
+import {gameField} from './map-genertor'
 
 
 window.addEventListener('keydown', (ev) => {
@@ -23,6 +24,8 @@ window.addEventListener('keydown', (ev) => {
 		case 101:
 			showTeleportMenu()
 			break
+		case 102:
+			console.log(gameField)
 	}
 })
 

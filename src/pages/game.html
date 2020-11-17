@@ -1,16 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="./favicon.ico">
+  <title>Digger</title>
+</head>
+<body>
+
 <div class="container">
   <div class="storage stat-item"></div>
   <div class="money stat-item"></div>
   <div class="fuel stat-item"></div>
+  <div class="speed stat-item"></div>
   <div class="depth stat-item">Depth: 0</div>
+  <button type="button" class="open-menu menu-button stat-item">Menu</button>
+
 
   <div class="alert"></div>
 
   <div id="game"></div>
-  
+
+<div class="modal-windows">
   <div class="menu-item shop" style="display: none;">
     <span class="header">Ore storage</span>
-    <button class="cancel shop__cancel">X</button>
+    <button class="cancel shop__cancel"></button>
     <div class="shop__container"></div>
     <button class="button shop__sell">Sell all resources</button>
     <span class="shop__info">Sell for: 0$</span>
@@ -18,7 +32,7 @@
 
   <div class="menu-item fuel-station" style="display: none;">
     <span class="header">Fuel station</span>
-    <button class="cancel fuel__cancel">X</button>
+    <button class="cancel fuel__cancel"></button>
     <button class="button buy-piece-fuel">Buy 1 fuel</button>
     <button class="button buy-fuel">Buy full tank</button>
     <br>
@@ -27,16 +41,38 @@
 
   <div class="menu-item upgrade-station" style="display: none;">
     <span class="header">Upgrade station</span>
-    <button class="cancel upgrade__cancel">X</button>
-    <div class="upgrade-list">
-      <div class="upgrade-item upgrade-tank">Tank upgrade</div>
-      <div class="upgrade-item upgrade-storage">Storage upgrade</div>
-    </div>
+    <button class="cancel upgrade__cancel"></button>
+    <div class="upgrade-list"></div>
   </div>
 
+  <div class="menu-item out-of-fuel" style="display: none;">
+    <span class="header">Out of fuel</span>
+    <button class="cancel out-of-fuel__cancel"></button>
+    <button class="button buy-one-fuel"></button>
+    <button class="button to-surface"></button>
+  </div>
+  
+  <div class="menu-item teleport" style="display: none;">
+    <span class="header">Teleport menu</span>
+    <button class="cancel teleport__cancel"></button>
+    <input class="button x-coord" type="text" name="x-coord" placeholder="enter the x coordinate">
+    <input class="button y-coord" type="text" name="y-coord" placeholder="enter the y coordinate">
+    <button class="button teleport-button">Teleport</button>
+  </div>
 
+  <div class="menu-item menu" style="display: none;">
+    <span class="header">Menu</span>
+    <button class="menu-button menu__cancel">Resume</button>
+    <button class="menu-button save">Save</button>
+    <!-- <button class="menu-button settings">Setings</button> -->
+    <a href="/index.html" class="menu-button quit"><!--Save and--> Quit</a>
+  </div>
+</div>
 </div>
 
 <style type="text/css">#hellopreloader>p{display:none;}#hellopreloader_preload{display: block;position: fixed;z-index: 99999;top: 0;left: 0;width: 100%;height: 100%;min-width: 1000px;background: #C5EFF7 url(http://hello-site.ru//main/images/preloads/puff.svg) center center no-repeat;background-size:300px;}</style>
 <div id="hellopreloader"><div id="hellopreloader_preload"></div></div>
 <script type="text/javascript">var hellopreloader = document.getElementById("hellopreloader_preload");function fadeOutnojquery(el){el.style.opacity = 1;var interhellopreloader = setInterval(function(){el.style.opacity = el.style.opacity - 0.05;if (el.style.opacity <=0.05){ clearInterval(interhellopreloader);hellopreloader.style.display = "none";}},16);}window.onload = function(){setTimeout(function(){fadeOutnojquery(hellopreloader);},1000);};</script>
+  
+</body>
+</html>
