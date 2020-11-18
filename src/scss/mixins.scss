@@ -59,3 +59,29 @@
   text-align: center;
   margin-top: 10px;
 }
+
+.load, .save {
+  width: 100px;
+  height: 75px;
+  border: 2px solid black;
+  margin-left: 5px;
+  margin-top: 50px;
+  cursor: pointer;
+  font-size: 30px;
+  padding-top: 25px;
+  position: relative;
+}
+
+.load-container, .save-container {
+  display: flex;
+  justify-content: center;
+}
+
+.loading, .settings, .saving {
+  height: 60vh;
+  width: 50vw;
+  left: 25vw;
+  top: 20vh;
+  overflow-y: auto;
+  text-align: center;
+}

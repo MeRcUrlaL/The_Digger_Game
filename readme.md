@@ -1,6 +1,6 @@
-#The digger game v. 0.2.4B
+#The digger game v. 0.2.6B
 
-You can try the game at the link: [Digger](http://q90175e4.beget.tech) v.0.1.9B
+You can try the game at the link: [Digger](http://q90175e4.beget.tech) v.0.2.6B
 
 Controls:
     

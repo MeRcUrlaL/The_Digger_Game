@@ -1,6 +1,6 @@
 {
   "name": "digger",
-  "version": "0.2.4B",
+  "version": "0.2.6B",
   "description": "The digger game on html + css + JavaScript",
   "main": "index.js",
   "scripts": {

@@ -1,8 +1,9 @@
 import {gameField} from './map-genertor'
 import {dig, isDiggable} from './digging'
-import {renderFuel, renderDepth, clearDarkness, renderMoney, renderSpeed, openMenu, renderCargo} from './render'
+import {renderFuel, renderDepth, clearDarkness, renderMoney, renderSpeed, renderCargo} from './render'
 import {interact} from './interaction'
 import {oneFuelCost} from './stations/fuel'
+import {openMenu} from './game'
 
 
 export let digger = {

@@ -7,7 +7,6 @@ let timerId
 
 function showModal(ev) {
   clearTimeout(timerId)
-  console.log(timerId)
 
   if(ev.target.classList.contains('menu-button')){
     const btnName = ev.target.classList[1].split('-', 1)[0]

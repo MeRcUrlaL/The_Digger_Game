@@ -1,5 +1,4 @@
-import {fuelForMove, listenerHandler, visionRadius, digger} from './movement'
-import {saveGame} from './saving'
+import {fuelForMove, visionRadius, digger} from './movement'
 
 
 
@@ -93,26 +92,6 @@ export function renderFuel() {
 		fuelView.outerHTML = `<div class="fuel stat-item">Fuel: ${digger.fuel}/${digger.maxFuel}</div>`
 		alertText.innerText = ''
 	}
-}
-
-export function openMenu() {
-	const menuSettingsBtn = document.querySelector('.settings')
-	const menuSaveBtn = document.querySelector('.save')
-	const menu = document.querySelector('.menu')
-	const cancelButton = menu.querySelector('.menu__cancel')
-	
-  menu.style.display = 'block'
-
-	cancelButton.addEventListener('click', hideMenu)
-	menuSaveBtn .addEventListener('click', saveGame)
-	window.removeEventListener('keydown', listenerHandler)
-
-  function hideMenu() {
-    menu.style.display = 'none'
-		cancelButton.removeEventListener('click', hideMenu)
-		menuSaveBtn.removeEventListener('click', saveGame)
-		window.addEventListener('keydown', listenerHandler)
-  }
 }
 
 export function renderCargo() {

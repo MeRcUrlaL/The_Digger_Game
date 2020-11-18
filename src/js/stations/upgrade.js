@@ -35,7 +35,7 @@ const upgradeList = [{
 	title: "Hull Upgrade",
 	imageURL: hullImgSrc,
 	get cost() {
-		return (5 + Math.floor(digger.maxCargo / 10)) * (3 + Math.floor(digger.maxCargo / 5))
+		return (5 + Math.floor(digger.maxCargo / 10)) * (7 + Math.floor(digger.maxCargo / 5))
 	},
 	get increase() {
 		return 5 + Math.floor(digger.maxCargo / 20)
@@ -57,10 +57,16 @@ const upgradeList = [{
 	level: 1,
 	imageURL: speedImgSrc,
 	get cost() {
-		return (10 + Math.floor(digger.speed / 10)) * (6 + Math.floor(digger.speed / 2))
+		if(digger.speed <= 350) {
+			return (10 + Math.floor(digger.speed / 10)) * (1 + Math.floor(digger.speed / 7))
+		}
+		return '---'
 	},
 	get increase() {
-		return 5 + Math.floor(digger.speed / 20)
+		if(digger.speed <= 350) {
+			return 10 + Math.floor(digger.speed / 5)
+		}
+		return 'MAX'
 	},
 	upgrade() {
 		if (digger.money >= this.cost && digger.speed <= 350) {
