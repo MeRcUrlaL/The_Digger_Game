@@ -67,8 +67,15 @@ export function renderLightOnLoad(gameField) {
 	}
 }
 
-export function renderObjects(posX, posY) {
-	game.querySelector(`.y${posY}x${posX}`).classList.add('b999')
+export function renderObjects() {
+	// if (digger.posY > 0) {
+	// 	const dgr = game.querySelector(`.y${digger.posY}x${digger.posX}`)
+	// 	dgr.style.backgroundImage = "url(./img/drillU.png)"
+	// 	console.log(dgr)
+	// 	dgr.classList.add('b999')
+	// 	console.log(dgr)
+	// } else {
+	game.querySelector(`.y${digger.posY}x${digger.posX}`).classList.add('b999')
 }
 
 export function renderFuel() {
@@ -120,14 +127,14 @@ export function renderMoney() {
   moneyView.innerText = `${digger.money}$`
 }
 
-export function renderDepth(posY) {
+export function renderDepth() {
 	const  depthView = document.querySelector('.depth')
 
-	depthView.innerText = `Depth: ${posY}`
+	depthView.innerText = `Depth: ${digger.posY}`
 }
 
 export function renderSpeed() {
 	const speedView = document.querySelector('.speed')
 
-	speedView.innerText = `Speed: ${digger.speed - 1000}`
+	speedView.innerText = `Speed: ${digger.speed}`
 }

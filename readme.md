@@ -1,6 +1,6 @@
-#The digger game v. 0.1.9B
+#The digger game v. 0.2.4B
 
-You can try the game at the link: [Digger](http://q90175e4.beget.tech)
+You can try the game at the link: [Digger](http://q90175e4.beget.tech) v.0.1.9B
 
 Controls:
     
@@ -40,7 +40,7 @@ To do list:
     ✓ Some ores are generated starting from a certain height
     ✓ The mechanics of speed
     ✘ Mechanics of ore hardness
-    ✘ Preload and game menu
+    ✓ Preload and game menu
     ✓ If you run out of fuel, a pop-up window with the ability to instantly 
        rise to the surface 3$/block on the Y axis or refuel oneFuel * 2$/unit.fuels
-    ✘ Saving and loading the game
+    ✓ Saving and loading the game

@@ -3,12 +3,15 @@ import {digger, loadDigger} from './movement'
 
 export function saveGame() {
 	//Temporarily saving in localStorage
-	localStorage.setItem('load1', [JSON.stringify(gameField),JSON.stringify(digger)])
+	const jsonGameField =  JSON.stringify(gameField)
+	const jsonDigger = JSON.stringify(digger)
+	localStorage.setItem('load1_gameField', jsonGameField)
+	localStorage.setItem('load1_digger', jsonDigger)
 }
 
 export function loadGame(saveKey) {
-	loadGameField(JSON.parse(localStorage.getItem(saveKey))[0])
-	loadDigger(JSON.parse(localStorage.getItem(saveKey))[1])
+	loadGameField(JSON.parse(localStorage.getItem(`${saveKey}_gameField`)))
+	loadDigger(JSON.parse(localStorage.getItem(`${saveKey}_digger`)))
 }
 
 

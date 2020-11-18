@@ -12,13 +12,12 @@ import {renderCargo, renderFuel, renderMoney, renderUpgrades, updateUpgradeItems
 const upgradeList = [{
 	name: "tank",
 	title: "Tank Upgrade",
-	level: 1,
 	imageURL: tankImgSrc,
 	get cost() {
-		return 90 * this.level
+		return (10 + Math.floor(digger.maxFuel / 10)) * (3 + Math.floor(digger.maxFuel / 13))
 	},
 	get increase() {
-		return 50 + 10 * this.level
+		return 10 + Math.floor(digger.maxFuel / 10)
 	},
 	upgrade: function () {
 		if (digger.money >= this.cost) {
@@ -34,13 +33,12 @@ const upgradeList = [{
 {
 	name: "hull",
 	title: "Hull Upgrade",
-	level: 1,
 	imageURL: hullImgSrc,
 	get cost() {
-		return 90 * this.level - 20
+		return (5 + Math.floor(digger.maxCargo / 10)) * (3 + Math.floor(digger.maxCargo / 5))
 	},
 	get increase() {
-		return 10 + 10 * this.level
+		return 5 + Math.floor(digger.maxCargo / 20)
 	},
 	upgrade() {
 		if (digger.money >= this.cost) {
@@ -59,13 +57,13 @@ const upgradeList = [{
 	level: 1,
 	imageURL: speedImgSrc,
 	get cost() {
-		return 90 * this.level - 30
+		return (10 + Math.floor(digger.speed / 10)) * (6 + Math.floor(digger.speed / 2))
 	},
 	get increase() {
-		return 10 * this.level
+		return 5 + Math.floor(digger.speed / 20)
 	},
 	upgrade() {
-		if (digger.money >= this.cost && digger.speed <= 1350) {
+		if (digger.money >= this.cost && digger.speed <= 350) {
 			digger.decreaseMoney(this.cost)
 			digger.increaseSpeed(this.increase)
 			renderMoney()

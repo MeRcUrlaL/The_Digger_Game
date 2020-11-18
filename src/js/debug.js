@@ -1,5 +1,5 @@
 import {increaseVision, teleportTo, digger} from './movement'
-import {renderMoney, renderCargo} from './render'
+import {renderMoney, renderCargo, renderFuel} from './render'
 
 
 
@@ -7,6 +7,7 @@ window.addEventListener('keydown', (ev) => {
 	switch (ev.keyCode) {
 		case 97:
 			digger.increaseFuel(100000)
+			renderFuel()
 			break
 		case 98:
       digger.increaseMaxCargo(100000)

@@ -1,8 +1,14 @@
 import '@/scss/menu.scss'
 
-window.addEventListener('click', showModal)
+window.addEventListener('click', showModal, false)
+
+let confirmRemove
+let timerId
 
 function showModal(ev) {
+  clearTimeout(timerId)
+  console.log(timerId)
+
   if(ev.target.classList.contains('menu-button')){
     const btnName = ev.target.classList[1].split('-', 1)[0]
     if (!ev.target.classList.contains('newgame-button')){
@@ -24,17 +30,49 @@ function showModal(ev) {
     }
   } else if (ev.target.classList.contains('load')) {
     const loadNum = ev.target.classList[1]
-    const notFound = document.querySelector('.not-found')
+    const info = document.querySelector('.info')
 
-    console.log(loadNum, 'in menu.js')
-
-    if (localStorage.getItem(loadNum)){
+    if (localStorage.getItem(`${loadNum}_gameField`) && localStorage.getItem(`${loadNum}_digger`)){
       document.location.href = `./game.html?loadNum=${ev.target.classList[1]}`
+    } else if(localStorage.getItem(`${loadNum}_gameField`) || localStorage.getItem(`${loadNum}_digger`)) {
+      info.innerHTML = `Save ${loadNum} is broken. Please describe the issue in <a style="color: black;" target="_blank" href="https://github.com/MeRcUrlaL/The_Digger_Game/issues">GitHub Issues</a>`
+      timerId = setTimeout(() => {
+        info.innerText = ''
+      }, 10000)
     } else {
-      notFound.innerText = `Save ${loadNum} not found`
-      setTimeout(() => {
-        notFound.innerText = ''
+      info.innerText = `Save ${loadNum} not found`
+      timerId = setTimeout(() => {
+        info.innerText = ''
       }, 2000)
     }
+  } else if (ev.target.classList.contains('remove')) {
+    const loadNum = ev.target.parentElement.classList[1]
+    const info = document.querySelector('.info')
+      if (localStorage.getItem(`${loadNum}_gameField`) || localStorage.getItem(`${loadNum}_digger`)) {
+        if (loadNum === confirmRemove && confirmRemove !== 'canceled') {
+          confirmRemove = undefined
+          localStorage.removeItem(`${loadNum}_gameField`)
+          localStorage.removeItem(`${loadNum}_digger`)
+          info.innerText = `Save ${loadNum} has been removed`
+          timerId = setTimeout(() => {
+            info.innerText = ''
+          }, 2000)
+        } else {
+          info.innerText = 'Click again to confirm'
+          timerId = setTimeout(() => {
+            info.innerText = ''
+            if(confirmRemove != undefined) {
+              confirmRemove = 'canceled'
+            }
+          }, 5000)
+        }
+
+        confirmRemove = loadNum
+      } else {
+        info.innerText = 'No save found'
+        timerId = setTimeout(() => {
+          info.innerText = ''
+        }, 4000)
+      }
   }
 }

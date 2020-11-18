@@ -23,6 +23,7 @@ export function showFuelMenu() {
 			digger.decreaseMoney(oneFuelCost)
 		}
 		renderFuel()
+		renderMoney()
 		renderFuelCost()
 	}
 
@@ -32,6 +33,7 @@ export function showFuelMenu() {
 			digger.decreaseMoney(fuelRequired * oneFuelCost)
 		}
 		renderFuel()
+		renderMoney()
 		hideFuelMenu()
 	}
 	

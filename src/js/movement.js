@@ -13,7 +13,7 @@ export let digger = {
 	maxFuel: 40,
 	cargo: 0,
 	maxCargo: 10,
-	speed: 1010,
+	speed: 10,
 	profit: 0,
 	storage: {
 		dirt: 0,
@@ -72,8 +72,10 @@ export let digger = {
 	}
 }
 
-export function loadDigger(value) {
-	digger = value
+export function loadDigger(val) {
+	for(const prop in val){
+		digger[prop] = val[prop]
+	}
 }
 
 export const fuelForMove = 0.5
@@ -98,16 +100,16 @@ window.addEventListener('keydown', listenerHandler)
 export function listenerHandler (ev) {
 	if (!timer && ev.keyCode == '87') {
 		moveY(-1)
-		timeOut(1500 - digger.speed)
+		timeOut(500 - digger.speed)
 	} else if (!timer && ev.keyCode == '65') {
 		moveX(-1)
-		timeOut(1500 - digger.speed)
+		timeOut(500 - digger.speed)
 	} else if (!timer && ev.keyCode == '83') {
 		moveY(1)
-		timeOut(1500 - digger.speed)
+		timeOut(500 - digger.speed)
 	} else if (!timer && ev.keyCode == '68') {
 		moveX(1)
-		timeOut(1500 - digger.speed)
+		timeOut(500 - digger.speed)
 	} else if (ev.keyCode == '69') {
 		interact()
 	} else if (ev.keyCode == '27'){
@@ -151,7 +153,7 @@ function move(current, next, direction) {
 			renderFuel()
 		}
 		clearDarkness(digger.posX, digger.posY, visionRadius)
-		renderDepth(digger.posY)
+		renderDepth()
 	} else if (!digger.isFullHold() && digger.fuel >= fuelForDig) {
 		dig(current, next)
 		current.classList.remove('b999')
@@ -163,7 +165,7 @@ function move(current, next, direction) {
 			renderFuel()
 		}
 		clearDarkness(digger.posX, digger.posY, visionRadius)
-		renderDepth(digger.posY)
+		renderDepth()
 	} else {
 		preventMove(direction)
 		if (digger.fuel < fuelForMove) {

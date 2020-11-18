@@ -1,5 +1,5 @@
-import {renderOres, renderObjects, renderFuel, renderCargo, renderMoney, renderSpeed, renderLightOnLoad} from './render'
-import {camFollow, digger} from './movement'
+import {renderOres, renderObjects, renderFuel, renderCargo, renderMoney, renderSpeed, renderLightOnLoad, renderDepth} from './render'
+import {camFollow} from './movement'
 import {loadGame} from './saving'
 
 
@@ -39,17 +39,18 @@ export function generateMap(loadNum) {
 	if (loadNum){
 		loadGame(loadNum)
 		renderOres(gameField)
-		renderObjects(digger.posX, digger.posY)
+		renderObjects()
 		renderFuel()
 		renderCargo()
 		renderSpeed()
 		renderMoney()
+		renderDepth()
 		renderLightOnLoad(gameField)
 		camFollow()
 	} else {
 		generateMapArray(gameField)
 		renderOres(gameField)
-		renderObjects(digger.posX, digger.posY)
+		renderObjects()
 		renderFuel()
 		renderCargo()
 		renderSpeed()

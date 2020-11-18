@@ -53,13 +53,28 @@ body {
 
 .load {
   width: 100px;
-  height: 100px;
+  height: 75px;
   border: 2px solid black;
   margin-left: 5px;
   margin-top: 50px;
   cursor: pointer;
+  font-size: 30px;
+  padding-top: 25px;
+  position: relative;
 }
 
-.not-found {
+.info {
   color: darkred;
+}
+
+.remove {
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  right: 0px;
+  top: 0px;
+  border: none;
+  background-image: url(../img/remove.png);
+  background-size: cover;
+  background-color: rgba(255, 0, 0, 0.35);
 }
