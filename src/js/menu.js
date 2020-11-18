@@ -14,6 +14,9 @@ function showModal(ev) {
       const modal = document.querySelector(`.${btnName}`)
       const cancelBtn = document.querySelector(`.${btnName}__cancel`)
 
+      if (btnName == 'loading') {
+        loadPlayTime()
+      }
       modal.style.display = 'block'
 
       cancelBtn.addEventListener('click', hideModal)
@@ -47,31 +50,44 @@ function showModal(ev) {
   } else if (ev.target.classList.contains('remove')) {
     const loadNum = ev.target.parentElement.classList[1]
     const info = document.querySelector('.info')
-      if (localStorage.getItem(`${loadNum}_gameField`) || localStorage.getItem(`${loadNum}_digger`)) {
-        if (loadNum === confirmRemove && confirmRemove !== 'canceled') {
-          confirmRemove = undefined
-          localStorage.removeItem(`${loadNum}_gameField`)
-          localStorage.removeItem(`${loadNum}_digger`)
-          info.innerText = `Save ${loadNum} has been removed`
-          timerId = setTimeout(() => {
-            info.innerText = ''
-          }, 2000)
-        } else {
-          info.innerText = 'Click again to confirm'
-          timerId = setTimeout(() => {
-            info.innerText = ''
-            if(confirmRemove != undefined) {
-              confirmRemove = 'canceled'
-            }
-          }, 5000)
-        }
-
-        confirmRemove = loadNum
-      } else {
-        info.innerText = 'No save found'
+    if (localStorage.getItem(`${loadNum}_gameField`) || localStorage.getItem(`${loadNum}_digger`)) {
+      if (loadNum === confirmRemove && confirmRemove !== 'canceled') {
+        confirmRemove = undefined
+        localStorage.removeItem(`${loadNum}_gameField`)
+        localStorage.removeItem(`${loadNum}_digger`)
+        localStorage.removeItem(`${loadNum}_minutes`)
+        info.innerText = `Save ${loadNum} has been removed`
         timerId = setTimeout(() => {
           info.innerText = ''
-        }, 4000)
+        }, 2000)
+      } else {
+        info.innerText = 'Click again to confirm'
+        timerId = setTimeout(() => {
+          info.innerText = ''
+          if(confirmRemove != undefined) {
+            confirmRemove = 'canceled'
+          }
+        }, 5000)
       }
+
+      confirmRemove = loadNum
+    } else {
+      info.innerText = 'No save found'
+      timerId = setTimeout(() => {
+        info.innerText = ''
+      }, 4000)
+    }
+  }
+}
+
+export function loadPlayTime() {
+  for (let i = 1; i <= 5; i++) {
+    const minutes = JSON.parse(localStorage.getItem(`load${i}_minutes`))
+    const timeInfo = document.querySelector(`.time${i}`)
+    if(minutes){
+      timeInfo.innerHTML = `${Math.floor(minutes / 60)} hours <br> ${minutes % 60} minutes`
+    } else {
+      timeInfo.innerHTML = 'Empty'
+    }
   }
 }

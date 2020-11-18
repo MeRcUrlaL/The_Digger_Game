@@ -1,6 +1,7 @@
 import {generateMap} from './map-genertor'
 import {listenerHandler} from './movement'
 import {saveGame} from './saving'
+import {loadPlayTime} from './menu'
 import './debug'
 import '../scss/index.scss'
 
@@ -21,10 +22,25 @@ const getParams = window
 
 const loadNum = getParams['loadNum']
 
+export let minutes
+
+if (localStorage.getItem(`${loadNum}_minutes`)){
+  minutes = parseInt(localStorage.getItem(`${loadNum}_minutes`))
+} else {
+  minutes = 0
+}
+
+setInterval(() => {
+  minutes++
+}, 60000)
+
 
 menuBtn.addEventListener('click', openMenu)
 
+
 export function openMenu() {
+  loadPlayTime()
+  
 	const menuSettingsBtn = document.querySelector('.settings-btn')
 	const menuSaveBtn = document.querySelector('.save-btn')
 	const menu = document.querySelector('.menu')
@@ -48,8 +64,6 @@ export function openMenu() {
   }
 
   function openSaveMenu() {
-    clearTimeout(timerId)
-
     const saving = document.querySelector('.saving')
     const cancelSaveButton = document.querySelector('.save__cancel')
     const info = saving.querySelector('.info')
@@ -61,21 +75,22 @@ export function openMenu() {
     window.removeEventListener('keydown', listenerHandler)
     
     function checkSaveSlot(ev) {
+      clearTimeout(timerId)
       const saveKey = ev.target.classList[1]
 
       if (ev.target.classList.contains('save') && isEmptySlot()) {
         saveGame(saveKey)
-        info.innerHTML = `<span style="color: darkgreen;">Game has been saved in slot ${saveKey}</span>`
+        info.innerText= `Game has been saved in slot ${saveKey}`
         timerId = setTimeout(() => {
-          info.innerHTML = ''
+          info.innerText= ''
         }, 5000)
       } else if (ev.target.classList.contains('save') && !isEmptySlot()){
         if (saveKey === confirmRewrite && confirmRewrite !== 'canceled') {
           confirmRewrite = undefined
           saveGame(saveKey)
-          info.innerHTML = `<span style="color: darkgreen;">Save ${saveKey} has been rewritten</span>`
+          info.innerText = `Save ${saveKey} has been rewritten`
           timerId = setTimeout(() => {
-            info.innerHTML = ''
+            info.innerText = ''
           }, 5000)
         } else {
           info.innerHTML = '<span style="color: darkred;">Slot is not empty. Click again to rewrite.</span>'

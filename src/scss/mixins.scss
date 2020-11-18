@@ -6,7 +6,7 @@
 }
 
 .menu-item {
-  background: rgba(107, 107, 107, 0.7);
+  background: rgba(107, 107, 107, 0.9);
   border: 2px solid gray;
   border-radius: 4px;
   position: fixed;
@@ -84,4 +84,9 @@
   top: 20vh;
   overflow-y: auto;
   text-align: center;
+}
+
+.time{
+  display: block;
+  font-size: 14px;
 }
