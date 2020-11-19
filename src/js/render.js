@@ -1,4 +1,4 @@
-import {fuelForMove, visionRadius, digger} from './movement'
+import {fuelForMove, digger} from './movement'
 
 
 
@@ -60,7 +60,7 @@ export function renderLightOnLoad(gameField) {
 	for (let y = 1; y < gameField.length; y++) {
 		for (let x = 0; x < gameField[y].length; x++) {
 			if (gameField[y][x] == 0) {
-				clearDarkness(x, y, visionRadius)
+				clearDarkness(x, y, digger.visionRadius)
 			}
 		}
 	}

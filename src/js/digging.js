@@ -34,6 +34,9 @@ export function dig(current, next) {
 		case 'b9':
 			digger.storage.gold += 1
 			digger.increaseProfit(18)
+		case 'b10':
+			digger.storage.platinum += 1
+			digger.increaseProfit(30)
 	}
 	next.className = `block y${digger.posY}x${digger.posX} b0`
 	digger.increaseCargo(1)

@@ -2,28 +2,18 @@ import {renderOres, renderObjects, renderFuel, renderCargo, renderMoney, renderS
 import {camFollow} from './movement'
 import {loadGame} from './saving'
 
-
-const genRate = [
-	{id: 3, rate: 100},   // stone
-	{id: 4, rate: 20},		// coal
-	{id: 5, rate: 15},		// copper
-	{id: 6, rate: 15},		// tin
-	{id: 7, rate: 8},		  // iron
-	{id: 8, rate: 5},			// silver
-	{id: 9, rate: 3}			// gold
+const ores = [
+	{id: 3, rate: 1000, depth: [0, 100000], name: 'stone', percentIncrease: 0},   // stone
+	{id: 4, rate: 10, depth: [3, 100], name: 'coal', percentIncrease: 1000},		// coal
+	{id: 5, rate: 15, depth: [20, 60], name: 'copper', percentIncrease: 0},		// copper
+	{id: 6, rate: 15, depth: [25, 65], name: 'tin', percentIncrease: 0},		// tin
+	{id: 7, rate: 8, depth: [35, 75], name: 'iron', percentIncrease: 0},		  // iron
+	{id: 8, rate: 5, depth: [40, 80], name: 'silver', percentIncrease: 0},			// silver
+	{id: 9, rate: 3, depth: [45, 85], name: 'gold', percentIncrease: 0},			// gold
+	{id: 10, rate: 1, depth: [0, 1000], name: 'platinum', percentIncrease: 0},		// platinum
 ]
 
-const genDepth = [
-	[0],	  		// stone id: 3
-	[3, 40],    // coal id: 4
-	[20, 60],   // copper id: 5
-	[25, 65],		// tin id: 6
-	[35, 75],   // iron id: 7
-	[40, 80],		// silver id: 8
-	[45, 85],		// gold id: 9
-]
-
-export const heightOfMap = 200
+export const heightOfMap = 100
 export const widthOfMap = 42
 
 export let gameField = [
@@ -49,6 +39,7 @@ export function generateMap(loadNum) {
 		camFollow()
 	} else {
 		generateMapArray(gameField)
+		console.log('game loaded')
 		renderOres(gameField)
 		renderObjects()
 		renderFuel()
@@ -60,27 +51,51 @@ export function generateMap(loadNum) {
 }
 
 function generateMapArray(gameField) {
-	let rnd
+	calculateRateIncrease()
+	let randOreRate
 	for (let i = 2; i < heightOfMap; i++){ 
 		gameField.push([])
-		for (let j = 2; j < widthOfMap; j++) {
 
-			let sum = 0
-		
-			for (let k = 0; k < genRate.length; k++) {
-				sum += genRate[k].rate;
+		let rateSum = 0
+		let validOres = []
+
+		for (const ore in ores) {
+			const min = ores[ore].depth[0]
+			const max = ores[ore].depth[1]
+
+			if (min <= i && max >= i){
+				console.log('rate' + ores[ore].rate)
+				console.log(ores[ore].percentIncrease)
+
+				if ( i < min + (max - min) / 2){
+					ores[ore].rate += ores[ore].percentIncrease
+				} else {
+					ores[ore].rate -= ores[ore].percentIncrease
+				}
+				validOres.push(ores[ore])
+				rateSum += ores[ore].rate
 			}
+		}
+		for (let j = 2; j < widthOfMap; j++) {
+			randOreRate = Math.floor(Math.random() * rateSum)
 		
-			let rand = Math.floor(Math.random() * sum);
-		
-			let l = 0;
-			for (let s = genRate[0].rate; s <= rand; s += genRate[l].rate) {
-				l++;
+			let oreIndex = 0;
+			validOres.sort((prev, next) => next.rate - prev.rate)
+			for (let s = validOres[0].rate; s <= randOreRate; s += validOres[oreIndex].rate) {
+				oreIndex++
 			}
-			if (genDepth[l][0] <= i && genDepth[l][1] >= i){
-				gameField[i].push(genRate[l].id)
-			} else {
-				gameField[i].push(3)
+
+			gameField[i].push(validOres[oreIndex].id)
+		}
+	}
+
+	function calculateRateIncrease() {
+		for(let ore in ores) {
+			const min = ores[ore].depth[0]
+			const max = ores[ore].depth[1]
+			if (ores[ore].percentIncrease){
+				const percentPerDepth = +(ores[ore].percentIncrease / ((max - min) / 2)).toFixed(1)
+				ores[ore].percentIncrease = +(ores[ore].rate / 100 * percentPerDepth).toFixed(2)
 			}
 		}
 	}

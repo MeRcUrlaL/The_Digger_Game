@@ -2,6 +2,8 @@
 import hullImgSrc from '@/img/upgrade_hull.png'
 import tankImgSrc from '@/img/upgrade_fuel.png'
 import speedImgSrc from '@/img/upgrade_speed.png'
+import radarImgSrc from '@/img/upgrade_radar.png'
+
 
 import {listenerHandler, digger} from '../movement'
 import {renderCargo, renderFuel, renderMoney, renderUpgrades, updateUpgradeItems} from '../render'
@@ -25,7 +27,6 @@ const upgradeList = [{
 			digger.increaseMaxFuel(this.increase)
 			renderFuel()
 			renderMoney()
-			this.level++
 			updateUpgradeItems(upgradeList)
 		}
 	} 
@@ -46,7 +47,6 @@ const upgradeList = [{
 			digger.increaseMaxCargo(this.increase)
 			renderCargo()
 			renderMoney()
-			this.level++
 			updateUpgradeItems(upgradeList)
 		}
 	},
@@ -54,7 +54,6 @@ const upgradeList = [{
 {
 	name: "speed",
 	title: "Speed Upgrade",
-	level: 1,
 	imageURL: speedImgSrc,
 	get cost() {
 		if(digger.speed <= 350) {
@@ -73,7 +72,31 @@ const upgradeList = [{
 			digger.decreaseMoney(this.cost)
 			digger.increaseSpeed(this.increase)
 			renderMoney()
-			this.level++
+			updateUpgradeItems(upgradeList)
+		}
+	}
+},
+{
+	name: "vision",
+	title: "Radar Upgrade",
+	imageURL: radarImgSrc,
+	get cost() {
+		if(digger.visionRadius <= 5) {
+			return digger.visionRadius * 500
+		}
+		return '---'
+	},
+	get increase() {
+		if(digger.visionRadius <= 5) {
+			return 1
+		}
+		return 'MAX'
+	},
+	upgrade() {
+		if (digger.money >= this.cost && digger.visionRadius <= 5) {
+			digger.decreaseMoney(this.cost)
+			digger.increaseVision(this.increase)
+			renderMoney()
 			updateUpgradeItems(upgradeList)
 		}
 	}

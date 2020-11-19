@@ -16,6 +16,7 @@ export let digger = {
 	maxCargo: 10,
 	speed: 10,
 	profit: 0,
+	visionRadius: 1,
 	storage: {
 		dirt: 0,
 		stone: 0,
@@ -25,6 +26,7 @@ export let digger = {
 		iron: 0,
 		silver: 0,
 		gold: 0,
+		platinum: 0,
 	},
 	increaseMoney(value){
 		this.money += value
@@ -70,7 +72,10 @@ export let digger = {
 		for (const ore in this.storage) {
 			this.storage[ore] = 0
 		}
-	}
+	},
+	 increaseVision(value) {
+		this.visionRadius += value
+	 }
 }
 
 export function loadDigger(val) {
@@ -84,10 +89,6 @@ export const fuelForDig = 2
 
 const game = document.getElementById('game')
 
-export let visionRadius = 1
-export function increaseVision(value) {
-	visionRadius += value
-}
 
 let current = game.querySelector(`.y${digger.posY}x${digger.posX}`)
 let timer
@@ -153,7 +154,7 @@ function move(current, next, direction) {
 			digger.decreaseFuel(fuelForMove)
 			renderFuel()
 		}
-		clearDarkness(digger.posX, digger.posY, visionRadius)
+		clearDarkness(digger.posX, digger.posY, digger.visionRadius)
 		renderDepth()
 	} else if (!digger.isFullHold() && digger.fuel >= fuelForDig) {
 		dig(current, next)
@@ -165,7 +166,7 @@ function move(current, next, direction) {
 			digger.decreaseFuel(fuelForDig)
 			renderFuel()
 		}
-		clearDarkness(digger.posX, digger.posY, visionRadius)
+		clearDarkness(digger.posX, digger.posY, digger.visionRadius)
 		renderDepth()
 	} else {
 		preventMove(direction)
@@ -239,9 +240,9 @@ export function teleportTo(x, y) {
 
 	moveDirection(current, next, 'left')
 	camFollow()
-	if (digger.posY >= visionRadius) {
+	if (digger.posY >= digger.visionRadius) {
 		next.removeAttribute('style')
-		clearDarkness(digger.posX, digger.posY, visionRadius)
+		clearDarkness(digger.posX, digger.posY, digger.visionRadius)
 	}
 }
 

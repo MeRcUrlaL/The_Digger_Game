@@ -84,6 +84,7 @@ export function openMenu() {
         timerId = setTimeout(() => {
           info.innerText= ''
         }, 5000)
+        loadPlayTime()
       } else if (ev.target.classList.contains('save') && !isEmptySlot()){
         if (saveKey === confirmRewrite && confirmRewrite !== 'canceled') {
           confirmRewrite = undefined
@@ -92,6 +93,7 @@ export function openMenu() {
           timerId = setTimeout(() => {
             info.innerText = ''
           }, 5000)
+          loadPlayTime()
         } else {
           info.innerHTML = '<span style="color: darkred;">Slot is not empty. Click again to rewrite.</span>'
           timerId = setTimeout(() => {

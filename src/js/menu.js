@@ -60,6 +60,7 @@ function showModal(ev) {
         timerId = setTimeout(() => {
           info.innerText = ''
         }, 2000)
+        loadPlayTime()
       } else {
         info.innerText = 'Click again to confirm'
         timerId = setTimeout(() => {

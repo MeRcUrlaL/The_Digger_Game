@@ -1,4 +1,4 @@
-import {increaseVision, teleportTo, digger} from './movement'
+import {teleportTo, digger} from './movement'
 import {renderMoney, renderCargo, renderFuel} from './render'
 
 
@@ -18,7 +18,7 @@ window.addEventListener('keydown', (ev) => {
       renderMoney()
 			break
 		case 100:
-			increaseVision(1)
+			digger.increaseVision(1)
 			break
 		case 101:
 			showTeleportMenu()
