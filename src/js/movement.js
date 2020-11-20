@@ -17,17 +17,7 @@ export let digger = {
 	speed: 10,
 	profit: 0,
 	visionRadius: 1,
-	storage: {
-		dirt: 0,
-		stone: 0,
-		coal: 0,
-		copper: 0,
-		tin: 0,
-		iron: 0,
-		silver: 0,
-		gold: 0,
-		platinum: 0,
-	},
+	storage: {},
 	increaseMoney(value){
 		this.money += value
 	},

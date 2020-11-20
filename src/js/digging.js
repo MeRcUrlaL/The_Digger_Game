@@ -1,43 +1,18 @@
 import {renderCargo} from './render'
-import {gameField} from './map-genertor'
+import {gameField, ores} from './map-genertor'
 import {digger} from './movement'
 
 export function dig(current, next) {
-	switch (next.classList[2]) {
-		case 'b2':
-      digger.storage.dirt += 1
-      digger.increaseProfit(0.5)
-			break
-		case 'b3':
-      digger.storage.stone += 1
-      digger.increaseProfit(1.5)
-				break
-		case 'b4':
-      digger.storage.coal += 1
-      digger.increaseProfit(5)
-			break
-		case 'b5':
-      digger.storage.copper += 1
-      digger.increaseProfit(6)
-			break
-		case 'b6':
-      digger.storage.tin += 1
-      digger.increaseProfit(6)
-			break
-		case 'b7':
-      digger.storage.iron += 1
-      digger.increaseProfit(7)
-			break
-		case 'b8':
-			digger.storage.silver += 1
-			digger.increaseProfit(15)
-		case 'b9':
-			digger.storage.gold += 1
-			digger.increaseProfit(18)
-		case 'b10':
-			digger.storage.platinum += 1
-			digger.increaseProfit(30)
+	const dig = ores.find(({id}) => `b${id}` == next.classList[2])
+	
+	if (digger.storage[dig.name]) {
+		digger.storage[dig.name] += 1
+	} else {
+		digger.storage[dig.name] = 1
 	}
+	
+	digger.increaseProfit(dig.profit)
+	
 	next.className = `block y${digger.posY}x${digger.posX} b0`
 	digger.increaseCargo(1)
 	

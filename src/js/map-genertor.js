@@ -2,15 +2,16 @@ import {renderOres, renderObjects, renderFuel, renderCargo, renderMoney, renderS
 import {camFollow} from './movement'
 import {loadGame} from './saving'
 
-const ores = [
-	{id: 3, rate: 1000, depth: [0, 100000], name: 'stone', percentIncrease: 0},   // stone
-	{id: 4, rate: 10, depth: [3, 100], name: 'coal', percentIncrease: 1000},		// coal
-	{id: 5, rate: 15, depth: [20, 60], name: 'copper', percentIncrease: 0},		// copper
-	{id: 6, rate: 15, depth: [25, 65], name: 'tin', percentIncrease: 0},		// tin
-	{id: 7, rate: 8, depth: [35, 75], name: 'iron', percentIncrease: 0},		  // iron
-	{id: 8, rate: 5, depth: [40, 80], name: 'silver', percentIncrease: 0},			// silver
-	{id: 9, rate: 3, depth: [45, 85], name: 'gold', percentIncrease: 0},			// gold
-	{id: 10, rate: 1, depth: [0, 1000], name: 'platinum', percentIncrease: 0},		// platinum
+export const ores = [
+	{id: 2, rate: 0, depth: [0, 0], name: 'dirt', profit: 0.5, percentIncrease: 0},  // dirt
+	{id: 3, rate: 1000, depth: [0, 100000], name: 'stone', profit: 1.5, percentIncrease: 0},   // stone
+	{id: 4, rate: 10, depth: [3, 100], name: 'coal', profit: 5, percentIncrease: 1000},		// coal
+	{id: 5, rate: 10, depth: [20, 60], name: 'copper', profit: 6, percentIncrease: 400},		// copper
+	{id: 6, rate: 10, depth: [25, 65], name: 'tin', profit: 6, percentIncrease: 400},		// tin
+	{id: 7, rate: 8, depth: [35, 75], name: 'iron', profit: 7, percentIncrease: 400},		  // iron
+	{id: 8, rate: 5, depth: [40, 80], name: 'silver', profit: 15, percentIncrease: 200},			// silver
+	{id: 9, rate: 3, depth: [45, 85], name: 'gold', profit: 18, percentIncrease: 200},			// gold
+	{id: 10, rate: 1, depth: [0, 1000], name: 'platinum', profit: 30, percentIncrease: 500},		// platinum
 ]
 
 export const heightOfMap = 100
@@ -39,7 +40,7 @@ export function generateMap(loadNum) {
 		camFollow()
 	} else {
 		generateMapArray(gameField)
-		console.log('game loaded')
+		console.log('map generated; rendering...')
 		renderOres(gameField)
 		renderObjects()
 		renderFuel()
@@ -64,9 +65,6 @@ function generateMapArray(gameField) {
 			const max = ores[ore].depth[1]
 
 			if (min <= i && max >= i){
-				console.log('rate' + ores[ore].rate)
-				console.log(ores[ore].percentIncrease)
-
 				if ( i < min + (max - min) / 2){
 					ores[ore].rate += ores[ore].percentIncrease
 				} else {
