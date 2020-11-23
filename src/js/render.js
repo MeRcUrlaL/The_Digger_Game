@@ -50,8 +50,8 @@ export function renderOres(gameField) {
 
 export function renderDown() {
 	if(startY >= 0){
-		document.querySelector(`.y${startY}x0`).parentElement.remove()
-		// game.firstChild.remove()
+		// document.querySelector(`.y${startY}x0`).parentElement.remove()
+		game.firstChild.remove()
 	}
 	startY++
 
@@ -65,7 +65,7 @@ export function renderDown() {
 			// }
 		}
 
-		let lastEl = document.createElement('div')
+		const lastEl = document.createElement('div')
 		lastEl.classList.add('line')
 		lastEl.innerHTML = line
 		game.appendChild(lastEl)
@@ -74,13 +74,14 @@ export function renderDown() {
 }
 
 export function renderUp() {
-	if(endY < gameField.length){
-		document.querySelector(`.y${endY}x0`).parentElement.remove()
-
-		// game.lastChild.remove()
-	}
 	endY--
 
+	if(endY < gameField.length){
+		// document.querySelector(`.y${endY}x0`).parentElement.remove()
+		game.lastChild.remove()
+	}
+
+	startY--
 	if(startY >= 0){
 		let line = ''
 		for(let x = 0; x < gameField[startY].length; x++){
@@ -91,12 +92,13 @@ export function renderUp() {
 			// }
 		}
 
-		let firstEl = document.createElement('div')
+
+		const firstEl = document.createElement('div')
 		firstEl.classList.add('line')
 		firstEl.innerHTML = line
+
 		game.insertBefore(firstEl, game.firstChild)
 	}
-	startY--
 }
 
 export function renderUpgrades(upgradeList) {

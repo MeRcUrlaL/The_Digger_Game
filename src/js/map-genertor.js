@@ -14,7 +14,7 @@ export const ores = [
 	{id: 10, rate: 1, depth: [0, 1000], name: 'platinum', profit: 30, percentIncrease: 500},		// platinum
 ]
 
-export const heightOfMap = 100
+export const heightOfMap = 10000
 export const widthOfMap = 42
 
 export let gameField = [
