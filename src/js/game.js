@@ -1,7 +1,6 @@
 import {generateMap} from './map-genertor'
 import {listenerHandler} from './movement'
 import {saveGame} from './saving'
-import {loadPlayTime} from './menu'
 import './debug'
 import '../scss/index.scss'
 
@@ -124,7 +123,17 @@ export function openMenu() {
   }
 }
 
-
+function loadPlayTime() {
+  for (let i = 1; i <= 5; i++) {
+    const minutes = JSON.parse(localStorage.getItem(`load${i}_minutes`))
+    const timeInfo = document.querySelector(`.time${i}`)
+    if(minutes){
+      timeInfo.innerHTML = `${Math.floor(minutes / 60)} hours <br> ${minutes % 60} minutes`
+    } else {
+      timeInfo.innerHTML = 'Empty'
+    }
+  }
+}
 
 
 // game.addEventListener('click', (ev) => {

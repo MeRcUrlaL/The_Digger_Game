@@ -1,6 +1,6 @@
 import {gameField} from './map-genertor'
 import {dig, isDiggable} from './digging'
-import {renderFuel, renderDepth, clearDarkness, renderMoney, renderSpeed, renderCargo} from './render'
+import {renderFuel, renderDepth, clearDarkness, renderMoney, renderSpeed, renderCargo, renderUp, renderDown} from './render'
 import {interact} from './interaction'
 import {oneFuelCost} from './stations/fuel'
 import {openMenu} from './game'
@@ -90,16 +90,16 @@ function timeOut(timeout) {
 window.addEventListener('keydown', listenerHandler)
 
 export function listenerHandler (ev) {
-	if (!timer && ev.keyCode == '87') {
+	if (!timer && (ev.keyCode == '87' || ev.keyCode == '38')) {
 		moveY(-1)
 		timeOut(500 - digger.speed)
-	} else if (!timer && ev.keyCode == '65') {
+	} else if (!timer && (ev.keyCode == '65' || ev.keyCode == '37')) {
 		moveX(-1)
 		timeOut(500 - digger.speed)
-	} else if (!timer && ev.keyCode == '83') {
+	} else if (!timer && (ev.keyCode == '83' || ev.keyCode == '40')) {
 		moveY(1)
 		timeOut(500 - digger.speed)
-	} else if (!timer && ev.keyCode == '68') {
+	} else if (!timer && (ev.keyCode == '68' || ev.keyCode == '39')) {
 		moveX(1)
 		timeOut(500 - digger.speed)
 	} else if (ev.keyCode == '69') {
@@ -195,6 +195,7 @@ function moveDirection(current, next, direction) {
 			case 'up':
 				current.style.backgroundImage = ''
 				next.style.backgroundImage = "url(./img/drillU.png)"
+				renderUp()
 			break
 			case 'left':
 				current.style.backgroundImage = ''
@@ -203,6 +204,7 @@ function moveDirection(current, next, direction) {
 			case 'down':
 				current.style.backgroundImage = ''
 				next.style.backgroundImage = "url(./img/drillD.png)"
+				renderDown()
 			break
 			case 'right':
 				current.style.backgroundImage = ''

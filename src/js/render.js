@@ -1,25 +1,102 @@
 import {fuelForMove, digger} from './movement'
+import {gameField} from './map-genertor'
 
 
+const screenHeight = document.documentElement.clientHeight
+const game = document.getElementById('game')
+
+
+let startY = digger.posY - Math.ceil(screenHeight / 100 + 7)
+let endY = digger.posY + Math.ceil(screenHeight / 100 + 7) 
+
+console.log(startY, endY)
 
 export function renderOres(gameField) {
-	const game = document.getElementById('game')
+	// const game = document.getElementById('game')
 
+	// let line = ''
+	// let gameHTML = ''
+
+	// for (let i = 0; i < gameField.length; i++) {
+
+	// 	line += '<div class="line">'
+	// 	for (let j = 0; j < gameField[i].length; j++) {
+	// 		line += `<div class="block y${i}x${j} b${gameField[i][j]}" style="filter: brightness(${i < 5 ? 125 - i * 25 : 0}%)"></div>`
+	// 	}	
+	// 	line += '</div>'
+
+	// 	gameHTML += line
+	// 	line = ''
+	// }
+	// game.innerHTML = game.innerHTML + gameHTML
 	let line = ''
 	let gameHTML = ''
 
-	for (let i = 0; i < gameField.length; i++) {
-
-		line += '<div class="line">'
-		for (let j = 0; j < gameField[i].length; j++) {
-			line += `<div class="block y${i}x${j} b${gameField[i][j]}" style="filter: brightness(${i < 5 ? 125 - i * 25 : 0}%)"></div>`
-		}	
-		line += '</div>'
-
-	gameHTML += line
-		line = ''
+	for( let y = startY; y <= endY; y++){
+		if(y >= 0) {
+			line += '<div class="line">'
+			for(let x = 0; x < gameField[y].length; x++){
+				line += `<div class="block y${y}x${x} b${gameField[y][x]}" style="filter: brightness(${y < 5 ? 125 - y * 25 : 0}%)"></div>`
+			}
+			line += '</div>'
+			gameHTML += line
+			line = ''
+		}
 	}
-	game.innerHTML = game.innerHTML + gameHTML
+	game.innerHTML = gameHTML
+	startY--
+	endY++
+}
+
+export function renderDown() {
+	if(startY >= 0){
+		document.querySelector(`.y${startY}x0`).parentElement.remove()
+		// game.firstChild.remove()
+	}
+	startY++
+
+	if(endY < gameField.length){
+		let line = ''
+		for(let x = 0; x < gameField[endY].length; x++){
+			// if (gameField[endY][x + 1] != 0 && gameField[endY][x - 1] != 0){
+				line += `<div class="block y${endY}x${x} b${gameField[endY][x]}" style="filter: brightness(${endY < 5 ? 125 - endY * 25 : 0}%)"></div>`
+			// } else {
+			// 	line += `<div class="block y${endY}x${x} b${gameField[endY][x]}"></div>`
+			// }
+		}
+
+		let lastEl = document.createElement('div')
+		lastEl.classList.add('line')
+		lastEl.innerHTML = line
+		game.appendChild(lastEl)
+	}
+	endY++
+}
+
+export function renderUp() {
+	if(endY < gameField.length){
+		document.querySelector(`.y${endY}x0`).parentElement.remove()
+
+		// game.lastChild.remove()
+	}
+	endY--
+
+	if(startY >= 0){
+		let line = ''
+		for(let x = 0; x < gameField[startY].length; x++){
+			// if (gameField[startY][x + 1] != 0 && gameField[startY][x - 1] != 0){
+				line += `<div class="block y${startY}x${x} b${gameField[startY][x]}" style="filter: brightness(${startY < 5 ? 125 - startY * 25 : 0}%)"></div>`
+			// } else {
+			// 	line += `<div class="block y${startY}x${x} b${gameField[startY][x]}"></div>`
+			// }
+		}
+
+		let firstEl = document.createElement('div')
+		firstEl.classList.add('line')
+		firstEl.innerHTML = line
+		game.insertBefore(firstEl, game.firstChild)
+	}
+	startY--
 }
 
 export function renderUpgrades(upgradeList) {
@@ -45,12 +122,10 @@ export function clearDarkness(x, y, radius) {
 	for (let i = y - radius; i <= y + radius; i++) {
 		for (let j = x - radius; j <= x + radius; j++) {
 			const element = game.querySelector(`.y${i}x${j}`);
-			if (i != y || j != x) {
-				try {
-					element.removeAttribute('style')
-				} catch (err) {
-					//err
-				}
+			try {
+				element.style.filter = ''
+			} catch (err) {
+				//light out of map border
 			}
 		}
 	}

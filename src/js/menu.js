@@ -1,6 +1,6 @@
 import '@/scss/menu.scss'
 
-window.addEventListener('click', showModal, false)
+window.addEventListener('click', showModal)
 
 let confirmRemove
 let timerId
@@ -81,7 +81,7 @@ function showModal(ev) {
   }
 }
 
-export function loadPlayTime() {
+function loadPlayTime() {
   for (let i = 1; i <= 5; i++) {
     const minutes = JSON.parse(localStorage.getItem(`load${i}_minutes`))
     const timeInfo = document.querySelector(`.time${i}`)
