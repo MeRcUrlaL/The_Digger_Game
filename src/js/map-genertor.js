@@ -1,4 +1,4 @@
-import {renderOres, renderObjects, renderFuel, renderCargo, renderMoney, renderSpeed, renderLightOnLoad, renderDepth} from './render'
+import {renderOres, renderObjects, renderFuel, renderCargo, renderMoney, renderSpeed, renderDepth} from './render'
 import {camFollow} from './movement'
 import {loadGame} from './saving'
 
@@ -26,6 +26,15 @@ export function loadGameField(value) {
 	gameField = value
 }
 
+export let light = [
+	[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+	[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
+]
+
+export function loadLight(value){
+	light = value
+}
+
 export function generateMap(loadNum) {
 	if (loadNum){
 		loadGame(loadNum)
@@ -36,7 +45,6 @@ export function generateMap(loadNum) {
 		renderSpeed()
 		renderMoney()
 		renderDepth()
-		renderLightOnLoad(gameField)
 		camFollow()
 	} else {
 		generateMapArray(gameField)
@@ -56,6 +64,7 @@ function generateMapArray(gameField) {
 	let randOreRate
 	for (let i = 2; i < heightOfMap; i++){ 
 		gameField.push([])
+		light.push([])
 
 		let rateSum = 0
 		let validOres = []
@@ -84,6 +93,7 @@ function generateMapArray(gameField) {
 			}
 
 			gameField[i].push(validOres[oreIndex].id)
+			light[i].push(0)
 		}
 	}
 

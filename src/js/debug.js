@@ -1,5 +1,5 @@
 import {teleportTo, digger} from './movement'
-import {renderMoney, renderCargo, renderFuel} from './render'
+import {renderMoney, renderCargo, renderFuel, renderOres} from './render'
 
 
 
@@ -24,8 +24,7 @@ window.addEventListener('keydown', (ev) => {
 			showTeleportMenu()
 			break
 		case 102:
-			digger.increaseMoney(100)
-			console.log(digger.money)
+			digger.increaseSpeed(100)
 	}
 })
 

@@ -1,6 +1,6 @@
 import {gameField} from './map-genertor'
 import {dig, isDiggable} from './digging'
-import {renderFuel, renderDepth, clearDarkness, renderMoney, renderSpeed, renderCargo, renderUp, renderDown} from './render'
+import {renderFuel, renderDepth, clearDarkness, renderMoney, renderSpeed, renderCargo, renderUp, renderDown, renderOres} from './render'
 import {interact} from './interaction'
 import {oneFuelCost} from './stations/fuel'
 import {openMenu} from './game'
@@ -167,7 +167,7 @@ function move(current, next, direction) {
 }
 
 export function camFollow() {
-	const drill = document.querySelector('.b999')
+	const drill = document.querySelector(`.y${digger.posY}x${digger.posX}`)
 	drill.scrollIntoView({block: "center",inline: "center", behavior: "smooth"})
 	// window.scrollTo(document.querySelector('.b999').offsetLeft - window.visualViewport.width / 2 + 25, document.querySelector('.b999').offsetTop - window.visualViewport.height / 2 + 25)
 }
@@ -221,21 +221,23 @@ function moveDirection(current, next, direction) {
 }
 
 export function teleportTo(x, y) {
-	const current = game.querySelector(`.y${digger.posY}x${digger.posX}`)
-	const next = game.querySelector(`.y${y}x${x}`)
 
 	digger.posX = x
 	digger.posY = y
+	renderOres()
+	const next = game.querySelector(`.y${y}x${x}`)
 
-	current.classList.remove('b999')
-	next.classList.add('b999')
 
-	moveDirection(current, next, 'left')
+	// current.classList.remove('b999')
+	console.log(next)
+
+	// moveDirection(current, next, 'left')
 	camFollow()
 	if (digger.posY >= digger.visionRadius) {
 		next.removeAttribute('style')
 		clearDarkness(digger.posX, digger.posY, digger.visionRadius)
 	}
+	next.classList.add('b999')
 }
 
 export function outOfFuel() {
