@@ -62,13 +62,13 @@ const upgradeList = [{
 		return '---'
 	},
 	get increase() {
-		if(digger.speed <= 350) {
+		if(digger.speed <= 300) {
 			return 10 + Math.floor(digger.speed / 5)
 		}
 		return 'MAX'
 	},
 	upgrade() {
-		if (digger.money >= this.cost && digger.speed <= 350) {
+		if (digger.money >= this.cost && digger.speed <= 300) {
 			digger.decreaseMoney(this.cost)
 			digger.increaseSpeed(this.increase)
 			renderMoney()

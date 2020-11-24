@@ -1,6 +1,6 @@
 import {gameField} from './map-genertor'
 import {dig, isDiggable} from './digging'
-import {renderFuel, renderDepth, clearDarkness, renderMoney, renderSpeed, renderCargo, renderUp, renderDown, renderOres} from './render'
+import {renderFuel, renderDepth, clearDarkness, renderMoney, renderSpeed, renderCargo, renderUp, renderDown, renderOres, startY, endY} from './render'
 import {interact} from './interaction'
 import {oneFuelCost} from './stations/fuel'
 import {openMenu} from './game'
@@ -63,9 +63,16 @@ export let digger = {
 			this.storage[ore] = 0
 		}
 	},
-	 increaseVision(value) {
+	reduceStorage(ores){
+		for(let ore in ores){
+			if(this.storage[ore] > ores[ore]){
+				this.storage[ore] -= ores[ore]
+			}
+		}
+	},
+	increaseVision(value) {
 		this.visionRadius += value
-	 }
+	}
 }
 
 export function loadDigger(val) {
@@ -135,6 +142,12 @@ function moveY(direction) {
 
 function move(current, next, direction) {
 	if (!isDiggable(next) && digger.fuel >= fuelForMove) {
+		if (direction == 'up'){
+			renderUp()
+		}
+		if(direction == 'down'){
+			renderDown()
+		}
 		renderCargo()
 		current.classList.remove('b999')
 		next.classList.add('b999')
@@ -147,6 +160,12 @@ function move(current, next, direction) {
 		clearDarkness(digger.posX, digger.posY, digger.visionRadius)
 		renderDepth()
 	} else if (!digger.isFullHold() && digger.fuel >= fuelForDig) {
+		if (direction == 'up'){
+			renderUp()
+		}
+		if(direction == 'down'){
+			renderDown()
+		}
 		dig(current, next)
 		current.classList.remove('b999')
 		next.classList.add('b999')
@@ -166,10 +185,37 @@ function move(current, next, direction) {
 	}
 }
 
+// in developing
+// 
+// function moveAnimation(current, next, direction){
+// 	const drill = document.querySelector('.b999')
+// 	switch (direction){
+// 		case 'left':
+// 			drill.style.transform = 'translate(-50px)'
+// 			break
+// 		case 'up':
+// 			drill.style.transform = 'translate(0,-50px)'
+// 			break
+// 		case 'right':
+// 			drill.style.transform = 'translate(50px)'
+// 			break
+// 		case 'down':
+// 			drill.style.transform = 'translate(0,50px)'
+// 			break
+// 	}
+// }
+
 export function camFollow() {
+	// const offsetLeft = digger.posX * 50 
 	const drill = document.querySelector(`.y${digger.posY}x${digger.posX}`)
-	drill.scrollIntoView({block: "center",inline: "center", behavior: "smooth"})
-	// window.scrollTo(document.querySelector('.b999').offsetLeft - window.visualViewport.width / 2 + 25, document.querySelector('.b999').offsetTop - window.visualViewport.height / 2 + 25)
+	drill.scrollIntoView({block: "center",inline: "center", behavior: "auto"})
+
+	// if (digger.posY < 5){
+	// 	const drill = document.querySelector(`.y${digger.posY}x${digger.posX}`)
+	// 	drill.scrollIntoView({block: "center",inline: "center", behavior: "smooth"})
+	// } else {
+	// 	window.scrollTo(document.querySelector('.b999').offsetLeft - document.documentElement.clientWidth / 2 + 25, document.querySelector('.b999').offsetTop - document.documentElement.clientHeight / 2 + 25)
+	// }
 }
 
 function preventMove(direction) {
@@ -195,7 +241,6 @@ function moveDirection(current, next, direction) {
 			case 'up':
 				current.style.backgroundImage = ''
 				next.style.backgroundImage = "url(./img/drillU.png)"
-				renderUp()
 			break
 			case 'left':
 				current.style.backgroundImage = ''
@@ -204,7 +249,6 @@ function moveDirection(current, next, direction) {
 			case 'down':
 				current.style.backgroundImage = ''
 				next.style.backgroundImage = "url(./img/drillD.png)"
-				renderDown()
 			break
 			case 'right':
 				current.style.backgroundImage = ''

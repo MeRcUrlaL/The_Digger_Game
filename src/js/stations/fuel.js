@@ -11,10 +11,12 @@ export function showFuelMenu() {
 	fuelStation.style.display = 'block'
 	const cancelButton = fuelStation.querySelector('.fuel__cancel')
 	const buyOneFuelButton = fuelStation.querySelector('.buy-piece-fuel')
+	const forAllMoneyButton = fuelStation.querySelector('.for-all-money')
 	const buyFullTankButton = fuelStation.querySelector('.buy-fuel')
 
 	cancelButton.addEventListener('click', hideFuelMenu)
 	buyOneFuelButton.addEventListener('click', buyOneFuel)
+	forAllMoneyButton.addEventListener('click', forAllMoney)
 	buyFullTankButton.addEventListener('click', buyFullTank)
 
 	function buyOneFuel() {
@@ -25,6 +27,18 @@ export function showFuelMenu() {
 		renderFuel()
 		renderMoney()
 		renderFuelCost()
+	}
+
+	function forAllMoney() {
+		const fuelAmount = parseInt(digger.money / oneFuelCost)
+
+		if (fuelAmount > 0 && fuelAmount <= fuelRequired) {
+			digger.decreaseMoney(fuelAmount * oneFuelCost)
+			digger.increaseFuel(fuelAmount)
+		}
+		renderFuel()
+		renderMoney()
+		hideFuelMenu()
 	}
 
 	function buyFullTank() {

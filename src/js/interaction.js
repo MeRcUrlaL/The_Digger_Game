@@ -2,6 +2,8 @@ import {listenerHandler, digger} from './movement'
 import {showShopMenu} from './stations/shop_sell'
 import {showFuelMenu} from './stations/fuel'
 import {showUpgradeMenu} from './stations/upgrade'
+import {showBuildMenu, buildings} from './stations/build'
+// import {showFactoryMenu} from './stations/factory'
 
 
 
@@ -17,5 +19,9 @@ export function interact() {
 	} else if (current.classList.contains('y0x9')) {
 		showUpgradeMenu()
 		window.removeEventListener('keydown', listenerHandler)
-  }
+  } else if (current.classList.contains('y0x16')) {
+		showBuildMenu()
+	} else if (current.classList.contains('y0x18') && buildings[0].built) {
+		// showFactoryMenu()
+	}
 }

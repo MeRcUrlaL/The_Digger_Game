@@ -6,16 +6,16 @@ const screenHeight = document.documentElement.clientHeight
 const game = document.getElementById('game')
 
 
-let startY = digger.posY - Math.ceil(screenHeight / 100 + 7)
-let endY = digger.posY + Math.ceil(screenHeight / 100 + 7) 
+export let startY = digger.posY - Math.ceil(screenHeight / 100 + 4)
+export let endY = digger.posY + Math.ceil(screenHeight / 100 + 4) 
 
 console.log(startY, endY)
 
 export function renderOres() {
 	let line = ''
 	let gameHTML = ''
-	startY = digger.posY - Math.ceil(screenHeight / 100 + 7)
-	endY = digger.posY + Math.ceil(screenHeight / 100 + 7) 
+	startY = digger.posY - Math.ceil(screenHeight / 100 + 4)
+	endY = digger.posY + Math.ceil(screenHeight / 100 + 4) 
 
 	for( let y = startY; y <= endY; y++){
 		if(y >= 0) {
@@ -106,6 +106,26 @@ export function updateUpgradeItems(upgradeList) {
 
 		itemCost.innerText = `Cost: ${upgradeList[i].cost}$`
 		itemIncrease.innerText = `Increase: ${upgradeList[i].increase}`
+	}
+}
+
+export function renderBuildings(buildings) {
+	const listElement = document.querySelector('.build-list')
+	listElement.innerHTML = ''
+	let count = 0
+
+	for(let i = 0; i < buildings.length; i++){
+		let resources = ''
+		for(let ore in buildings[i].resources){
+			resources += `${ore}: ${buildings[i].resources[ore]}<br>`
+		}
+		if(buildings[i].built != true){
+			count++
+			listElement.innerHTML += `<div class="build-item ${buildings[i].name}-build" style="background-image: url(${buildings[i].imageURL});"><span class="upgrade-title">${buildings[i].title}</span><span class="cost${i}">Cost: ${buildings[i].cost}$</span> <span class="inc${i}">Resources: ${resources}</span></div>`
+		}
+	}
+	if (count == 0){
+		listElement.innerHTML = '<div class="header">All buildings are built</div>'
 	}
 }
 

@@ -175,6 +175,10 @@ body {
     background-image: url(../img/bgstone.png);
 }
 
+.b800 {
+    background-image: url(../img/factory.png);
+}
+
 .b999 {
     background-image: url(../img/drill/drillGroundL.png);
     z-index: 10;
@@ -240,7 +244,8 @@ body {
     text-align: center;
 }
 
-.upgrade-station {
+.upgrade-station,
+.build-station {
     height: 60vh;
     width: 50vw;
     left: 25vw;
@@ -262,7 +267,8 @@ progress {
     border: none;
 }
 
-.upgrade-list {
+.upgrade-list, 
+.build-list {
     margin-top: 30px;
     justify-content: center;
     align-items: flex-start;
@@ -270,7 +276,8 @@ progress {
 }
 
 
-.upgrade-item {
+.upgrade-item,
+.build-item{
     cursor: pointer;
     text-transform: capitalize;
     margin-right: 10px;
@@ -285,12 +292,14 @@ progress {
     border: rgba(0, 0, 0, 0.2) solid 1px ;
 }
 
-.upgrade-item span {
+.upgrade-item span,
+.build-item span {
     display: block;
     font-size: 13px;
 }
 
-.upgrade-item .upgrade-title {
+.upgrade-item .upgrade-title,
+.build-item .build-title {
     font-size: 16px;
 }
 
