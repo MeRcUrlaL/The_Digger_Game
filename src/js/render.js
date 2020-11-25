@@ -1,5 +1,6 @@
 import {fuelForMove, digger} from './movement'
 import {gameField, light} from './map-genertor'
+import {buildings} from './stations/build'
 
 
 const screenHeight = document.documentElement.clientHeight
@@ -109,7 +110,7 @@ export function updateUpgradeItems(upgradeList) {
 	}
 }
 
-export function renderBuildings(buildings) {
+export function renderBuildings() {
 	const listElement = document.querySelector('.build-list')
 	listElement.innerHTML = ''
 	let count = 0
@@ -119,7 +120,7 @@ export function renderBuildings(buildings) {
 		for(let ore in buildings[i].resources){
 			resources += `${ore}: ${buildings[i].resources[ore]}<br>`
 		}
-		if(buildings[i].built != true){
+		if(digger.buildings[buildings[i].name]  != true){
 			count++
 			listElement.innerHTML += `<div class="build-item ${buildings[i].name}-build" style="background-image: url(${buildings[i].imageURL});"><span class="upgrade-title">${buildings[i].title}</span><span class="cost${i}">Cost: ${buildings[i].cost}$</span> <span class="inc${i}">Resources: ${resources}</span></div>`
 		}
@@ -152,6 +153,20 @@ export function renderObjects() {
 	// 	console.log(dgr)
 	// } else {
 	game.querySelector(`.y${digger.posY}x${digger.posX}`).classList.add('b999')
+}
+
+export function placeBuildings() {
+	for(let element in buildings){
+		if(digger.buildings[buildings[element].name] == true){
+			const body = document.querySelector('body')
+			let building = document.createElement('div')
+			building.classList.add('building')
+			building.classList.add(`${buildings[element].name}-building`)
+			building.style.top = 400
+			building.style.left = buildings[element].location * 50
+			body.insertBefore( building, body.firstChild)
+		}
+	}
 }
 
 export function renderFuel() {

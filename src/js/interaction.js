@@ -8,20 +8,21 @@ import {showBuildMenu, buildings} from './stations/build'
 
 
 export function interact() {
-	const current = game.querySelector(`.y${digger.posY}x${digger.posX}`)
-
-	if (current.classList.contains('y0x10')) {
-		showShopMenu()
-		window.removeEventListener('keydown', listenerHandler)
-	} else if (current.classList.contains('y0x11')) {
-		showFuelMenu()
-		window.removeEventListener('keydown', listenerHandler)
-	} else if (current.classList.contains('y0x9')) {
-		showUpgradeMenu()
-		window.removeEventListener('keydown', listenerHandler)
-  } else if (current.classList.contains('y0x16')) {
-		showBuildMenu()
-	} else if (current.classList.contains('y0x18') && buildings[0].built) {
-		// showFactoryMenu()
+	if(digger.posY == 0){
+		if (digger.posX == 10) {
+			showShopMenu()
+			window.removeEventListener('keydown', listenerHandler)
+		} else if (digger.posX == 11) {
+			showFuelMenu()
+			window.removeEventListener('keydown', listenerHandler)
+		} else if (digger.posX == 9) {
+			showUpgradeMenu()
+			window.removeEventListener('keydown', listenerHandler)
+		} else if (digger.posX == 16) {
+			showBuildMenu()
+		} else if ((digger.posX == 18 || digger.posX == 19) && digger.buildings[buildings[0].name]) {
+			// showFactoryMenu()
+			console.log('Building is avaliable!')
+		}
 	}
 }

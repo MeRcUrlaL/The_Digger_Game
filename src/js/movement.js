@@ -18,6 +18,7 @@ export let digger = {
 	profit: 0,
 	visionRadius: 1,
 	storage: {},
+	buildings: {},
 	increaseMoney(value){
 		this.money += value
 	},
@@ -65,7 +66,7 @@ export let digger = {
 	},
 	reduceStorage(ores){
 		for(let ore in ores){
-			if(this.storage[ore] > ores[ore]){
+			if(this.storage[ore] >= ores[ore]){
 				this.storage[ore] -= ores[ore]
 			}
 		}

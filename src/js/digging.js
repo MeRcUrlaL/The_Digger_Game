@@ -21,7 +21,8 @@ export function dig(current, next) {
 }
 
 export function isDiggable(next) {
-	if(next.classList.contains('b0') || next.classList.contains('b1')) {
+	const id = next.classList[2].split('b')[1]
+	if(id <= 1) {
 		return false
 	}
 	return true

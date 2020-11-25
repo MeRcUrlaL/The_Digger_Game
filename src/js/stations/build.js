@@ -1,14 +1,12 @@
-import factoryIcon from '@/img/factory_icon.png'
+import factoryIcon from '@/img/factory.png'
 import {digger, listenerHandler} from '../movement'
-import {renderMoney, renderBuildings, renderCargo} from '../render'
-import {insertBuilding} from '../map-genertor'
+import {renderMoney, renderBuildings, renderCargo, placeBuildings} from '../render'
 
 export let buildings = [{
-  id: 800,
+  id: 0,
   name: 'factory',
   title: "Build factory",
   location: 18,
-  built: false,
 	imageURL: factoryIcon,
   cost: 200,
   resources: {
@@ -21,11 +19,41 @@ export let buildings = [{
     digger.storage.iron >= this.resources.iron) 
     {
       digger.decreaseMoney(this.cost)
-      digger.reduceStorage(this.resources)
+			digger.reduceStorage(this.resources)
+			digger.buildings[this.name] = true
       renderMoney()
-      this.built = true
-      renderBuildings(this)
-      renderCargo()
+			renderBuildings(this)
+			renderCargo()
+			placeBuildings()
+      // insertBuilding(this.id, this.location)
+		}
+	} 
+},
+{
+  id: 1,
+  name: 'sawmill',
+  title: "Sawmill",
+  location: 22,
+	imageURL: factoryIcon,
+  cost: 850,
+  resources: {
+    stone: 10,
+		iron: 8,
+		gold: 2
+	},
+	build() {
+    if (digger.money >= this.cost &&
+    digger.storage.stone >= this.resources.stone && 
+		digger.storage.iron >= this.resources.iron &&
+		digger.storage.gold >= this.resources.gold) 
+    {
+      digger.decreaseMoney(this.cost)
+			digger.reduceStorage(this.resources)
+			digger.buildings[this.name] = true
+      renderMoney()
+			renderBuildings(this)
+			renderCargo()
+			placeBuildings()
       // insertBuilding(this.id, this.location)
 		}
 	} 

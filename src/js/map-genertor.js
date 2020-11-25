@@ -1,4 +1,4 @@
-import {renderOres, renderObjects, renderFuel, renderCargo, renderMoney, renderSpeed, renderDepth} from './render'
+import {renderOres, renderObjects, renderFuel, renderCargo, renderMoney, renderSpeed, renderDepth, placeBuildings} from './render'
 import {camFollow} from './movement'
 import {loadGame} from './saving'
 
@@ -45,6 +45,7 @@ export function generateMap(loadNum) {
 		loadGame(loadNum)
 		renderOres()
 		renderObjects()
+		placeBuildings()
 		renderFuel()
 		renderCargo()
 		renderSpeed()

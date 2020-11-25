@@ -10,7 +10,9 @@ body {
 }
 
 .container {
+    background-color: #add8e6;
     background-image: url(../img/enviourment.png);
+    background-position: bottom;
     color: black;
     background-repeat: no-repeat;
     font-family: 'Pixel';
@@ -132,6 +134,7 @@ body {
     height: 50px;
     display: inline-block;
     position: relative;
+    overflow: visible;
 }
 
 
@@ -173,10 +176,6 @@ body {
 
 .b1 {
     background-image: url(../img/bgstone.png);
-}
-
-.b800 {
-    background-image: url(../img/factory.png);
 }
 
 .b999 {
@@ -292,6 +291,10 @@ progress {
     border: rgba(0, 0, 0, 0.2) solid 1px ;
 }
 
+.build-item {
+    filter: sepia(100%) brightness(70%)
+}
+
 .upgrade-item span,
 .build-item span {
     display: block;
@@ -362,4 +365,20 @@ progress {
     text-align: center;
     border: 1px solid black;
     width: 100px;
+}
+
+.building {
+    position: absolute;
+}
+
+.factory-building {
+    width: 100px;
+    height: 100px;
+    background-image: url(../img/factory.png);
+}
+
+.sawmill-building {
+    width: 100px;
+    height: 100px;
+    background-image: url(../img/factory.png);
 }
