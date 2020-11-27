@@ -6,7 +6,8 @@ export let buildings = [{
   id: 0,
   name: 'factory',
   title: "Build factory",
-  location: 18,
+	location: 18,
+	height: 2,
 	imageURL: factoryIcon,
   cost: 200,
   resources: {
@@ -29,35 +30,37 @@ export let buildings = [{
 		}
 	} 
 },
-{
-  id: 1,
-  name: 'sawmill',
-  title: "Sawmill",
-  location: 22,
-	imageURL: factoryIcon,
-  cost: 850,
-  resources: {
-    stone: 10,
-		iron: 8,
-		gold: 2
-	},
-	build() {
-    if (digger.money >= this.cost &&
-    digger.storage.stone >= this.resources.stone && 
-		digger.storage.iron >= this.resources.iron &&
-		digger.storage.gold >= this.resources.gold) 
-    {
-      digger.decreaseMoney(this.cost)
-			digger.reduceStorage(this.resources)
-			digger.buildings[this.name] = true
-      renderMoney()
-			renderBuildings(this)
-			renderCargo()
-			placeBuildings()
-      // insertBuilding(this.id, this.location)
-		}
-	} 
-}]
+// {
+//   id: 1,
+//   name: 'sawmill',
+//   title: "Sawmill",
+// 	location: 22,
+// 	height: 2,
+// 	imageURL: factoryIcon,
+//   cost: 850,
+//   resources: {
+//     stone: 10,
+// 		iron: 8,
+// 		gold: 2
+// 	},
+// 	build() {
+//     if (digger.money >= this.cost &&
+//     digger.storage.stone >= this.resources.stone && 
+// 		digger.storage.iron >= this.resources.iron &&
+// 		digger.storage.gold >= this.resources.gold) 
+//     {
+//       digger.decreaseMoney(this.cost)
+// 			digger.reduceStorage(this.resources)
+// 			digger.buildings[this.name] = true
+//       renderMoney()
+// 			renderBuildings(this)
+// 			renderCargo()
+// 			placeBuildings()
+//       // insertBuilding(this.id, this.location)
+// 		}
+// 	} 
+// }
+]
 
 export function showBuildMenu() {
 	renderBuildings(buildings)

@@ -15,7 +15,6 @@ export let digger = {
 	cargo: 0,
 	maxCargo: 10,
 	speed: 10,
-	profit: 0,
 	visionRadius: 1,
 	storage: {},
 	buildings: {},
@@ -53,23 +52,30 @@ export let digger = {
 		this.speed += value
 		renderSpeed()
 	},
-	increaseProfit(value) {
-		this.profit += value
-	},
-	clearProfit() {
-		this.profit = 0
-	},
 	clearStorage() {
 		for (const ore in this.storage) {
 			this.storage[ore] = 0
 		}
 	},
-	reduceStorage(ores){
-		for(let ore in ores){
-			if(this.storage[ore] >= ores[ore]){
-				this.storage[ore] -= ores[ore]
+	reduceStorage(value){
+		for(let ore in value){
+			if(this.storage[ore] >= value[ore]){
+				this.storage[ore] -= value[ore]
+				this.cargo -= value[ore]
 			}
 		}
+	},
+	addToStorage(value){
+		for(let ore in value){
+			if (this.storage[ore]) {
+				this.storage[ore] += value[ore]
+			} else {
+				this.storage[ore] = value[ore]
+			}
+			this.cargo += value[ore]
+
+		}
+		renderCargo()
 	},
 	increaseVision(value) {
 		this.visionRadius += value
@@ -82,7 +88,7 @@ export function loadDigger(val) {
 	}
 }
 
-export const fuelForMove = 0.5
+export const fuelForMove = 0.25
 export const fuelForDig = 2
 
 const game = document.getElementById('game')

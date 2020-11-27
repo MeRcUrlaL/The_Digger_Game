@@ -156,15 +156,18 @@ export function renderObjects() {
 }
 
 export function placeBuildings() {
+	const buildContainer = document.querySelector('.buildings')
+	while (buildContainer.firstChild) {
+		buildContainer.removeChild(buildContainer.firstChild);
+	}
 	for(let element in buildings){
 		if(digger.buildings[buildings[element].name] == true){
-			const body = document.querySelector('body')
 			let building = document.createElement('div')
 			building.classList.add('building')
 			building.classList.add(`${buildings[element].name}-building`)
-			building.style.top = 400
-			building.style.left = buildings[element].location * 50
-			body.insertBefore( building, body.firstChild)
+			building.style.top = '400px'
+			building.style.left = `${buildings[element].location * 50}px`
+			buildContainer.appendChild(building)
 		}
 	}
 }

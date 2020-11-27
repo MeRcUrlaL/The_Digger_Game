@@ -137,7 +137,7 @@ function loadPlayTime() {
 
 
 // game.addEventListener('click', (ev) => {
-// ev.target.classList.add('b1')
+//   ev.target.classList.contains('b100')
 // })
 
 generateMap(loadNum)

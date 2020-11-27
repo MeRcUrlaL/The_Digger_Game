@@ -3,7 +3,7 @@ import {showShopMenu} from './stations/shop_sell'
 import {showFuelMenu} from './stations/fuel'
 import {showUpgradeMenu} from './stations/upgrade'
 import {showBuildMenu, buildings} from './stations/build'
-// import {showFactoryMenu} from './stations/factory'
+import {showFactoryMenu} from './stations/factory'
 
 
 
@@ -21,8 +21,7 @@ export function interact() {
 		} else if (digger.posX == 16) {
 			showBuildMenu()
 		} else if ((digger.posX == 18 || digger.posX == 19) && digger.buildings[buildings[0].name]) {
-			// showFactoryMenu()
-			console.log('Building is avaliable!')
+			showFactoryMenu()
 		}
 	}
 }

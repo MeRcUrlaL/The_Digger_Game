@@ -8,6 +8,8 @@
 </head>
 <body>
 
+  <div class="buildings"></div>
+
 <div class="container">
   <div class="cargo stat-item"></div>
   <div class="money stat-item"></div>
@@ -21,82 +23,81 @@
 
   <div id="game"></div>
 
-<div class="modal-windows">
-  <div class="menu-item shop" style="display: none;">
-    <span class="header">Ore storage</span>
-    <button class="cancel shop__cancel"></button>
-    <div class="shop__container"></div>
-    <button class="button shop__sell">Sell all resources</button>
-    <span class="shop__info">Sell for: 0$</span>
-  </div>
-
-  <div class="menu-item fuel-station" style="display: none;">
-    <span class="header">Fuel station</span>
-    <button class="cancel fuel__cancel"></button>
-    <button class="button buy-piece-fuel">Buy 1 fuel</button>
-    <button class="button for-all-money">For all money</button>
-    <button class="button buy-fuel">Buy full tank</button>
-    <br>
-    <span class="fuel-cost">fuel cost: 0$</span>
-  </div>
-
-  <div class="menu-item upgrade-station" style="display: none;">
-    <span class="header">Upgrade station</span>
-    <button class="cancel upgrade__cancel"></button>
-    <div class="upgrade-list"></div>
-  </div>
-
-  <div class="menu-item build-station" style="display: none;">
-    <span class="header">Building station</span>
-    <button class="cancel build__cancel"></button>
-    <div class="build-list"></div>
-  </div>
-
-  <div class="menu-item factory" style="display: none;">
-    <span class="header">Building station</span>
-    <button class="cancel build__cancel"></button>
-    <div class="build-list"></div>
-  </div>
-  
-
-  <div class="menu-item out-of-fuel" style="display: none;">
-    <span class="header">Out of fuel</span>
-    <button class="cancel out-of-fuel__cancel"></button>
-    <button class="button buy-one-fuel"></button>
-    <button class="button to-surface"></button>
-  </div>
-  
-  <div class="menu-item teleport" style="display: none;">
-    <span class="header">Teleport menu(it may not work correctly!)</span>
-    <button class="cancel teleport__cancel"></button>
-    <input class="button x-coord" type="text" name="x-coord" placeholder="enter the x coordinate">
-    <input class="button y-coord" type="text" name="y-coord" placeholder="enter the y coordinate">
-    <button class="button teleport-button">Teleport</button>
-  </div>
-
-  <div class="menu-item menu" style="display: none;">
-    <span class="header">Menu</span>
-    <button class="menu-button menu__cancel">Resume</button>
-    <button class="menu-button save-btn">Save</button>
-    <!-- <button class="menu-button settings-btn">Setings</button> -->
-    <a href="/index.html" class="menu-button quit-btn"><!--Save and--> Quit</a>
-  </div>
-
-  <div class="menu-item saving" style="display: none;">
-    <button class="cancel save__cancel"></button>
-    <span class="header">Save game</span>
-    <div class="save-container">
-      <div class="save load1">Save1 <span class="time time1"></span></div>
-      <div class="save load2">Save2 <span class="time time2"></span></div>
-      <div class="save load3">Save3 <span class="time time3"></span></div>
-      <div class="save load4">Save4 <span class="time time4"></span></div>
-      <div class="save load5">Save5 <span class="time time5"></span></div>
+  <div class="modal-windows">
+    <div class="menu-item shop" style="display: none;">
+      <span class="header">Ore storage</span>
+      <button class="cancel shop__cancel"></button>
+      <div class="shop__container"></div>
+      <button class="button shop__sell">Sell all resources</button>
+      <span class="shop__info">Sell for: 0$</span>
     </div>
-    <span class="header info"></span>
+
+    <div class="menu-item fuel-station" style="display: none;">
+      <span class="header">Fuel station</span>
+      <button class="cancel fuel__cancel"></button>
+      <button class="button buy-piece-fuel">Buy 1 fuel</button>
+      <button class="button for-all-money">For all money</button>
+      <button class="button buy-fuel">Buy full tank</button>
+      <br>
+      <span class="fuel-cost">fuel cost: 0$</span>
+    </div>
+
+    <div class="menu-item upgrade-station" style="display: none;">
+      <span class="header">Upgrade station</span>
+      <button class="cancel upgrade__cancel"></button>
+      <div class="upgrade-list"></div>
+    </div>
+
+    <div class="menu-item build-station" style="display: none;">
+      <span class="header">Building station</span>
+      <button class="cancel build__cancel"></button>
+      <div class="build-list"></div>
+    </div>
+
+    <div class="menu-item factory-station" style="display: none;">
+      <span class="header">Building station</span>
+      <button class="cancel factory__cancel"></button>
+      <div class="recipe-list"></div>
+    </div>
+    
+
+    <div class="menu-item out-of-fuel" style="display: none;">
+      <span class="header">Out of fuel</span>
+      <button class="cancel out-of-fuel__cancel"></button>
+      <button class="button buy-one-fuel"></button>
+      <button class="button to-surface"></button>
+    </div>
+    
+    <div class="menu-item teleport" style="display: none;">
+      <span class="header">Teleport menu(it may not work correctly!)</span>
+      <button class="cancel teleport__cancel"></button>
+      <input class="button x-coord" type="text" name="x-coord" placeholder="enter the x coordinate">
+      <input class="button y-coord" type="text" name="y-coord" placeholder="enter the y coordinate">
+      <button class="button teleport-button">Teleport</button>
+    </div>
+
+    <div class="menu-item menu" style="display: none;">
+      <span class="header">Menu</span>
+      <button class="menu-button menu__cancel">Resume</button>
+      <button class="menu-button save-btn">Save</button>
+      <!-- <button class="menu-button settings-btn">Setings</button> -->
+      <a href="/index.html" class="menu-button quit-btn"><!--Save and--> Quit</a>
+    </div>
+
+    <div class="menu-item saving" style="display: none;">
+      <button class="cancel save__cancel"></button>
+      <span class="header">Save game</span>
+      <div class="save-container">
+        <div class="save load1">Save1 <span class="time time1"></span></div>
+        <div class="save load2">Save2 <span class="time time2"></span></div>
+        <div class="save load3">Save3 <span class="time time3"></span></div>
+        <div class="save load4">Save4 <span class="time time4"></span></div>
+        <div class="save load5">Save5 <span class="time time5"></span></div>
+      </div>
+      <span class="header info"></span>
+    </div>
+
   </div>
-
-
-</div>
 </div>
 
 <style type="text/css">#hellopreloader>p{display:none;}#hellopreloader_preload{display: block;position: fixed;z-index: 99999;top: 0;left: 0;width: 100%;height: 100%;min-width: 1000px;background: #C5EFF7 url(http://hello-site.ru//main/images/preloads/puff.svg) center center no-repeat;background-size:300px;}</style>

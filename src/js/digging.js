@@ -11,8 +11,6 @@ export function dig(current, next) {
 		digger.storage[dig.name] = 1
 	}
 	
-	digger.increaseProfit(dig.profit)
-	
 	next.className = `block y${digger.posY}x${digger.posX} b0`
 	digger.increaseCargo(1)
 	
